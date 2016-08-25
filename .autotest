@@ -9,4 +9,13 @@ Autotest.add_hook :initialize do |at|
   exceptions.each do |exception|
     at.add_exception(exception)
   end
+
+  at.add_mapping %r%^spec/(.*)_spec\.rb$% do |_, m|
+    puts m
+    "spec/#{m[1]}_spec.rb"
+  end
+  at.add_mapping %r%^lib/(.*)\.rb$% do |_, m|
+    puts m
+    "spec/#{m[1]}_spec.rb"
+  end
 end

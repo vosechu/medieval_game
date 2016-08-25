@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'activesupport'
+
 group :development, :test do
   gem 'pry-byebug', :require => false
   gem 'rubocop', :require => false

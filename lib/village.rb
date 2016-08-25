@@ -15,6 +15,7 @@ class Village
     @structures     = []
     @stockpile      = []
     @fields         = []
+    @jobs           = {}
 
     @neighbors      = []
     @shire          = Object.new

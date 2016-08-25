@@ -1,5 +1,15 @@
 # Villages
 
+## Wonderful description of Uzege in Germany
+
+https://www.reddit.com/r/AskHistorians/comments/3uzs4d/in_the_middle_ages_how_did_the_internal_economy/cxj8q57
+https://www.reddit.com/r/AskHistorians/comments/3uzs4d/in_the_middle_ages_how_did_the_internal_economy/cxjft2d
+
+Millstones: http://www.bahs.org.uk/AGHR/ARTICLES/40n2a1.pdf
+
+## Description of farms
+
+https://www.reddit.com/r/AskHistorians/comments/4ayctm/early_modern_1516th_century_european/d14mjh4
 
 ## Manors
 

@@ -4,7 +4,8 @@ require 'village'
 require 'medieval_game'
 
 describe Citizen do
-  subject { described_class.new }
+  let(:village) { instance_double(Village) }
+  subject { described_class.new(village: village) }
 
   describe 'initialization' do
     it 'sets the values' do
@@ -15,12 +16,12 @@ describe Citizen do
 
   describe 'lord relationships' do
     it 'allows lords to have tenants' do
-      subject.tenants << Citizen.new
+      subject.tenants << Citizen.new(village: village)
       expect(subject.tenants.count).to eq(1)
     end
 
     it 'allows tenants to have lords' do
-      subject.lord = Citizen.new
+      subject.lord = Citizen.new(village: village)
       subject.lord.tenants << subject
       expect(subject.lord.tenants.count).to eq(1)
     end

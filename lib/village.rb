@@ -9,7 +9,7 @@ class Village
   attr_accessor :structures, :stockpile, :fields
   attr_accessor :neighbors, :shire
 
-  def initialize(game: game)
+  def initialize(game:)
     @game           = game
 
     @defense_rating = 0

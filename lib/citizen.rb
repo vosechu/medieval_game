@@ -25,7 +25,7 @@ class Citizen
   attr_accessor :parents, :spouse, :children
   attr_accessor :pregnant_at
 
-  def initialize(village: village)
+  def initialize(village:)
     @village      = village
 
     @health       = 100

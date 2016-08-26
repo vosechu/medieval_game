@@ -36,6 +36,7 @@ default:
   apr:
     plant_onions_and_leeks: &temp_ratios
     plant_flax: &temp_ratios
+    plant_hemp: &temp_ratios
     wean_calves: &temp_ratios
     milking_and_dairy_work: &temp_ratios
     farrowing: &temp_ratios # birth of piglets

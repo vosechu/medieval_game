@@ -1,21 +1,26 @@
+require 'yaml'
+require 'work_group'
+require 'citizen'
+
 class Village
+  attr_accessor :game
   attr_accessor :population, :defense_rating, :offense_rating
-  attr_accessor :citizens, :council
+  attr_accessor :citizens, :reeve
   attr_accessor :structures, :stockpile, :fields
   attr_accessor :neighbors, :shire
 
-  def initialize
-    @population     = 0
+  def initialize(game: game)
+    @game           = game
+
     @defense_rating = 0
     @offense_rating = 0
 
     @citizens       = []
-    @council        = []
+    @reeve          = Object.new
 
     @structures     = []
     @stockpile      = []
     @fields         = []
-    @jobs           = {}
 
     @neighbors      = []
     @shire          = Object.new
@@ -48,7 +53,26 @@ class Village
     }
   end
 
+  def work_groups
+    all_work_groups[game.date.month]
+  end
+
   private
+
+  def all_work_groups
+    @all_work_groups ||= begin
+      work_groups = []
+
+      wg_yml = File.open("config/work_groups.yml") { |file| YAML.load(file) }
+      wg_yml.each_pair { |job, needs| work_groups << WorkGroup.new(name: job, needs: needs) }
+
+      work_groups
+    end
+  end
+
+  def population
+    @citizens.count
+  end
 
   def avg(attribute)
     @citizens.map(&attribute).reduce(:+) / @citizens.count

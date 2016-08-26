@@ -1,7 +1,9 @@
 class WorkGroup
   attr_accessor :citizens
 
-  def initialize
+  def initialize(name: name, needs: needs)
+    @name     = name
+    @needs   = needs
     @citizens = []
   end
 

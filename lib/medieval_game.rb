@@ -44,9 +44,9 @@ if $PROGRAM_NAME == __FILE__
   # number_of_villages = 9000
   number_of_villagers = 10
   # number_of_villagers = 500
-  number_of_ticks = 1.day / MedievalGame::TICK_LENGTH
+  number_of_ticks = 52.weeks / MedievalGame::TICK_LENGTH
 
-  Benchmark.bm do |results|
+  Benchmark.bm(13) do |results|
     results.report("init:") do
       game = MedievalGame.new
     end
@@ -62,7 +62,7 @@ if $PROGRAM_NAME == __FILE__
         end
       end
     end
-    results.report("tick:") do
+    results.report("one year:") do
       number_of_ticks.times do
         game.tick
       end

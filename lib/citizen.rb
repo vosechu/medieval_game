@@ -17,6 +17,7 @@ class Citizen
     :lawful_vs_means_justify_the_ends => 50
   }
 
+  attr_accessor :village
   attr_accessor :health, :wealth, :satisfaction, :age, :gender
   attr_accessor :highest_rank, :titles
   attr_accessor :values
@@ -24,7 +25,9 @@ class Citizen
   attr_accessor :parents, :spouse, :children
   attr_accessor :pregnant_at
 
-  def initialize
+  def initialize(village: village)
+    @village      = village
+
     @health       = 100
     @wealth       = 100
     @satisfaction = 100
@@ -50,6 +53,8 @@ class Citizen
     @values = VALUES.each_with_object({}) do |(k, v), memo|
       memo[k] = v
     end
+
+    @current_task = Object.new
   end
 
   def tick
@@ -61,6 +66,20 @@ class Citizen
   after_event :death, :find_next_beneficiary
 
   private
+
+  def find_something_to_do
+    village.work_groups
+    # If it's sunup, start to get up
+    # If there's a festival, do that
+    # If it's sunday, rest and go to church
+    # If I'm in need, deal with that first
+    # If I'm the reeve, the priest or a professional, do that
+    # If I have a current_task; do that
+    # If I'm young; Ask my parents to choose a work_group
+    # If I have too little work, pick a work_group at random from the village
+    # If I have too much work, advertise a work_group in the village
+
+  end
 
   def structures
     {

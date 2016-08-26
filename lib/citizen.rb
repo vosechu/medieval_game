@@ -41,6 +41,8 @@ class Citizen
     @manors       = []
 
     @parents      = {}
+    @benefactor   = Object.new # Who will give us stock if they die?
+    @beneficiary  = Object.new # Who will receive our stock if I die?
     @spouse       = Object.new
     @pregnant_at  = Time.now
     @children     = []
@@ -51,10 +53,51 @@ class Citizen
   end
 
   def tick
-    married?
+    find_something_to_do
   end
 
+  def self.after_event(_event, _action); end
+  def self.before_event(_event, _action); end
+  after_event :death, :find_next_beneficiary
+
   private
+
+  def stockpile
+    {
+      :livestock => {
+        :sheep => :unknown,
+        :lambs => :unknown,
+        :cows => :unknown,
+        :calves => :unknown,
+        :bulls => :unknown,
+        :draft_horses => :unknown,
+        :travel_horses => :unknown,
+        :oxen => :unknown,
+        :sows => :unknown,
+        :piglets => :unknown,
+        :boar => :unknown
+      },
+      :stock => {
+        :vines => :unknown,
+        :olives => :unknown,
+        :fruit => :unknown,
+        :vegetables => :unknown,
+        :grain => :unknown
+      },
+      :secondary => {
+        :wine => :unknown,
+        :olive_oil => :unknown,
+        :cheese => :unknown, # 98lb per cow
+        :butter => :unknown, # 14lb per cow
+        :charcoal => :unknown,
+        :spun_yarn => :unknown,
+        :woven_cloth => :unknown
+      }
+    }
+  end
+
+  def find_work
+  end
 
   def married?
   end

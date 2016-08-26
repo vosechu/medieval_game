@@ -5,7 +5,7 @@ describe MedievalGame do
   describe 'timekeeping' do
     it 'updates the date each tick' do
       expect(subject.date.day).to eq(1)
-      (24*60).times { subject.tick }
+      (1.day / MedievalGame::TICK_LENGTH).times { subject.tick }
       expect(subject.date.day).to eq(2)
     end
 

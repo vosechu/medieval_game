@@ -6,7 +6,7 @@ require 'village'
 require 'active_support/core_ext/numeric/time'
 
 class MedievalGame
-  TICK_LENGTH = 1.minute
+  TICK_LENGTH = 1.hour
 
   attr_accessor :villages, :date
 
@@ -40,24 +40,30 @@ if $PROGRAM_NAME == __FILE__
   require 'benchmark'
   game = nil
 
+  number_of_villages = 1
+  # number_of_villages = 9000
+  number_of_villagers = 10
+  # number_of_villagers = 500
+  number_of_ticks = 1.day / MedievalGame::TICK_LENGTH
+
   Benchmark.bm do |results|
     results.report("init:") do
       game = MedievalGame.new
     end
     results.report("init villages:") do
-      9000.times do
-        game.villages << Village.new
+      number_of_villages.times do
+        game.villages << Village.new(game: game)
       end
     end
     game.villages.each do |village|
       results.report("init citizens:") do
-        500.times do
-          village.citizens << Citizen.new
+        number_of_villagers.times do
+          village.citizens << Citizen.new(village: village)
         end
       end
     end
     results.report("tick:") do
-      365*24*60.times do
+      number_of_ticks.times do
         game.tick
       end
     end

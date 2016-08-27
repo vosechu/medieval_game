@@ -10,8 +10,8 @@ class Village < Site
   attr_accessor :shire
   attr_accessor :comm_range
 
-  def initialize(game:, map, coordinates)
-    super
+  def initialize(game:, map: nil, coordinates: nil)
+    super(map, coordinates)
 
     @game           = game
 

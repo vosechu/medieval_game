@@ -36,7 +36,7 @@ if $PROGRAM_NAME == __FILE__
     end
     results.report("init villages:") do
       number_of_villages.times do
-        game.villages << Village.new(game: game)
+        game.villages << Village.new(game: game, map: "", coordinates: "")
       end
     end
     game.villages.each do |village|

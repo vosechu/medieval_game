@@ -6,6 +6,7 @@ group :development, :test do
   gem 'pry-byebug', :require => false
   gem 'rubocop', :require => false
   gem 'byebug', :require => false
+  gem 'factory_girl'
 
   gem 'guard', :require => false
   gem 'guard-rspec', :require => false

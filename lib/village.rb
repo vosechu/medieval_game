@@ -1,14 +1,18 @@
 require 'reeve'
 require 'citizen'
+require 'site'
 
-class Village
+class Village < Site
   attr_accessor :game
   attr_accessor :population, :defense_rating, :offense_rating
   attr_accessor :citizens, :reeve
   attr_accessor :structures, :stockpile, :fields
   attr_accessor :neighbors, :shire
+  attr_accessor :comm_range
 
-  def initialize(game:)
+  def initialize(game:, map, coordinates)
+    super
+
     @game           = game
 
     # @defense_rating = 0
@@ -32,6 +36,8 @@ class Village
     # @yearly_labor_levy = 40 # days of service to the lord in exchange for protection
     # @yearly_tax_to_lord = :unknown # percent of goods/wealth sent to lord
     # @yearly_tithe_to_church = :unknown # percent of goods/wealth sent to church
+
+    @comm_modifier = 0
   end
 
   def tick
@@ -76,4 +82,8 @@ class Village
   # def avg(attribute)
   #   @citizens.map(&attribute).reduce(:+) / @citizens.count
   # end
+
+  def comm_range
+    super + comm_modifier
+  end
 end

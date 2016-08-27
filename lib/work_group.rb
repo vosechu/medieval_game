@@ -26,9 +26,25 @@ class WorkGroup
     return self
   end
 
+  def progress
+    case type
+    when "fixed_per_day"
+      @completeness += fullness.fdiv(duration) * 100
+    end
+  end
+
   private
 
   attr_reader :needs, :type, :adults, :children
+  attr_writer :completeness
+
+  def max_workers
+    adults_needed + children_needed
+  end
+
+  def fullness
+    (@adults.count + @children.count).fdiv(max_workers)
+  end
 
   def adults_needed
     case type

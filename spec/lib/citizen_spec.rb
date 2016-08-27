@@ -19,6 +19,7 @@ describe Citizen do
     describe 'finding work to do' do
       it 'asks about work available' do
         expect(village).to receive(:work_groups)
+        expect(subject).to receive(:do_the_thing)
         subject.tick
       end
     end

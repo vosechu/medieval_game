@@ -64,6 +64,7 @@ class Citizen
 
   def tick
     find_something_to_do
+    do_the_thing
 
     return nil
   end
@@ -97,6 +98,10 @@ class Citizen
     return if busy?
 
     current_task = village.work_groups.first.sign_up(citizen: self)
+  end
+
+  def do_the_thing
+    current_task.progress unless current_task.finished?
   end
 
   def busy?

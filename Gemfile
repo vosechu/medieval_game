@@ -6,12 +6,10 @@ group :development, :test do
   gem 'pry-byebug', :require => false
   gem 'rubocop', :require => false
   gem 'byebug', :require => false
-  gem 'mocha', :require => false
 
-  gem 'autotest-standalone'
-  gem 'autotest-growl'
-  gem 'autotest-fsevent' if RUBY_PLATFORM =~ /darwin/i
-  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
+  gem 'guard', :require => false
+  gem 'guard-rspec', :require => false
+  gem 'terminal-notifier-guard', :require => false
 end
 
 group :test do

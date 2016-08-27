@@ -1,0 +1,112 @@
+temp_ratios: &temp_ratios
+  fixed_per_day: {}
+  per_acre_per_day:
+    adults: 10
+    children: 10
+  per_unit: {}
+  fixed_percentage_time:
+    adults: 100 # percentage of population
+    days: 27 # number of days spent
+
+default:
+  jan:
+    process_grains: &temp_ratios # threshing and winnowing
+    clear_ditches: &temp_ratios
+    cut_wood: &temp_ratios
+    breed_sows: &temp_ratios
+    spread_muck: # Manure
+      per_time:
+        adults: 100
+        days: 27
+    camping_sport: # TODO: What does this actually do for us in game?
+      per_acre_per_day:
+        children: 2.5 # 20-30 per game
+    lambing: &temp_ratios # birth of lambs
+
+  feb:
+    prune_grapes: &temp_ratios
+    prune_fruit_trees: &temp_ratios
+    prune_hedgerows: &temp_ratios
+    fix_hedgerows: &temp_ratios
+    fix_fences: &temp_ratios
+    kill_moles: &temp_ratios
+    plant_willow: &temp_ratios
+    add_lime_chalk_and_manure_to_soil: &temp_ratios
+    lambing: &temp_ratios
+    calving: &temp_ratios
+
+  mar:
+    plow_and_harrow:
+      per_acre_per_day:
+        adults: 1 # 0.79 - 1.85
+
+    plant_spring_grains: &temp_ratios
+    calving: &temp_ratios
+
+  apr:
+    plant_onions_and_leeks: &temp_ratios
+    plant_flax: &temp_ratios
+    plant_hemp: &temp_ratios
+    wean_calves: &temp_ratios
+    milking_and_dairy_work: &temp_ratios
+    farrowing: &temp_ratios # birth of piglets
+
+  may:
+    weed_winter_crops:
+      per_acre:
+        adults: 0.75
+    fix_thatched_roofs: &temp_ratios
+    plant_pulses: &temp_ratios # peas and beans
+    capture_swarming_bees: &temp_ratios
+    plant_garden_vegetables: &temp_ratios
+
+  jun:
+    shear_sheep: &temp_ratios
+    shear_lambs: &temp_ratios
+    harvest_hay: &temp_ratios
+    weed_summer_crops:
+      per_acre:
+        adults: 0.75
+
+  jul:
+    harvest_hay: &temp_ratios
+    harvest_flax: &temp_ratios
+    harvest_hemp: &temp_ratios
+    harvest_winter_crops: &temp_ratios
+
+  aug:
+    harvest_winter_grain: &temp_ratios
+    harvest_spring_grain: &temp_ratios
+    harvest_straw: &temp_ratios
+    plant_turnips: &temp_ratios
+
+  sep:
+    harvest_peas: &temp_ratios
+    breed_cattle: &temp_ratios
+    harvest_honey: &temp_ratios
+    plow_fields: &temp_ratios
+    plant_winter_wheat: &temp_ratios
+    plant_winter_rye: &temp_ratios
+    harvest_apples: &temp_ratios
+    harvest_blackberries: &temp_ratios
+    take_excess_stock_to_market: &temp_ratios
+
+  oct:
+    plant_winter_barley: &temp_ratios
+    plant_winter_oats: &temp_ratios
+    harvest_grapes: &temp_ratios
+    make_wine: &temp_ratios
+    make_verjuice: &temp_ratios
+    breed_sheep: &temp_ratios
+    fatten_pigs: &temp_ratios
+
+  nov:
+    fatten_pigs: &temp_ratios
+    harvest_firewood: &temp_ratios
+    process_grains: &temp_ratios # threshing and winnowing
+
+  dec:
+    slaughter_hogs: &temp_ratios
+    shovel_manure: &temp_ratios
+    process_grains: &temp_ratios # threshing and winnowing
+

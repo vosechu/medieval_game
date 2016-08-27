@@ -1,3 +1,5 @@
+require 'stockpile'
+
 class Citizen
   VALUES = {
     :welcoming_vs_defensive => 50,
@@ -17,6 +19,7 @@ class Citizen
     :lawful_vs_means_justify_the_ends => 50
   }
 
+  attr_accessor :village
   attr_accessor :health, :wealth, :satisfaction, :age, :gender
   attr_accessor :highest_rank, :titles
   attr_accessor :values
@@ -24,7 +27,9 @@ class Citizen
   attr_accessor :parents, :spouse, :children
   attr_accessor :pregnant_at
 
-  def initialize
+  def initialize(village:)
+    @village      = village
+
     @health       = 100
     @wealth       = 100
     @satisfaction = 100
@@ -34,27 +39,57 @@ class Citizen
     @highest_rank = 'serf'
     @titles       = []
 
-    @lord         = Object.new
-    @vassals      = []
-    @tenants      = []
-    @fields       = []
-    @manors       = []
+    # @lord         = Object.new
+    # @vassals      = []
+    # @tenants      = []
+    # @manors       = []
 
+    @head_of_family = true
+    @family       = Object.new
     @parents      = {}
+    @benefactor   = Object.new # Who will give us stock if they die?
+    @beneficiary  = Object.new # Who will receive our stock if I die?
     @spouse       = Object.new
     @pregnant_at  = Time.now
     @children     = []
 
+    @stockpile    = nil
+
     @values = VALUES.each_with_object({}) do |(k, v), memo|
       memo[k] = v
     end
+
+    @current_task = Object.new
   end
 
   def tick
-    married?
+    find_something_to_do
+  end
+
+  # TODO: Does this properly dedup fields that exist in both the
+  # family stockpile and the personal stockpile? Also, should that
+  # ever happen?
+  def fields
+    stockpile.fields
+    stockpile.fields | family.fields if head_of_family?
+  end
+
+  def head_of_family?
+    @head_of_family
+  end
+
+  def acreage
+    fields.map(&:acreage).reduce(:+)
   end
 
   private
+
+  def find_something_to_do
+
+  end
+
+  def find_work
+  end
 
   def married?
   end

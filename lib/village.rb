@@ -7,7 +7,7 @@ class Village < Site
   attr_accessor :population, :defense_rating, :offense_rating
   attr_accessor :citizens, :reeve
   attr_accessor :structures, :stockpile, :fields
-  attr_accessor :neighbors, :shire
+  attr_accessor :shire
   attr_accessor :comm_range
 
   def initialize(game:, map, coordinates)
@@ -30,8 +30,7 @@ class Village < Site
     # @structures     = []
     @stockpile      = []
 
-    # @neighbors      = []
-    # @shire          = Object.new
+    @shire          = Object.new
 
     # @yearly_labor_levy = 40 # days of service to the lord in exchange for protection
     # @yearly_tax_to_lord = :unknown # percent of goods/wealth sent to lord

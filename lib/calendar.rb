@@ -11,9 +11,10 @@ class Calendar
     def date=(date)
       @date = date
     end
+    def tick
+      Calendar.date += Calendar::TICK_LENGTH
 
-    def increment_date!
-      @date += TICK_LENGTH
+      return nil
     end
 
     def months_activities

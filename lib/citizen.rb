@@ -64,6 +64,8 @@ class Citizen
 
   def tick
     find_something_to_do
+
+    return nil
   end
 
   # TODO: Does this properly dedup fields that exist in both the
@@ -80,6 +82,10 @@ class Citizen
 
   def acreage
     fields.map(&:acreage).reduce(:+)
+  end
+
+  def inspect
+    "Citizen"
   end
 
   private

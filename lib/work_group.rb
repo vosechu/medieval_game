@@ -21,7 +21,9 @@ class WorkGroup
   end
 
   def sign_up(citizen:)
-    @citizens << citizen
+    @adults << citizen
+
+    return nil
   end
 
   private
@@ -31,21 +33,21 @@ class WorkGroup
   def adults_needed
     case type
     when "fixed_per_day"
-      needs["adults"]
+      needs["adults"] || 0
     end
   end
 
   def children_needed
     case type
     when "fixed_per_day"
-      needs["children"]
+      needs["children"] || 0
     end
   end
 
   def duration
     case type
     when "fixed_per_day"
-      needs["days"]
+      needs["days"] || 0
     end
   end
 end

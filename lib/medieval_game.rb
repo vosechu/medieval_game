@@ -13,8 +13,10 @@ class MedievalGame
   end
 
   def tick
-    Calendar.increment_date!
+    Calendar.tick
     villages.map { |village| village.tick }
+
+    return nil
   end
 end
 
@@ -26,7 +28,7 @@ if $PROGRAM_NAME == __FILE__
   # number_of_villages = 9000
   number_of_villagers = 10
   # number_of_villagers = 500
-  number_of_ticks = 52.weeks / MedievalGame::TICK_LENGTH
+  number_of_ticks = 52.weeks / Calendar::TICK_LENGTH
 
   Benchmark.bm(13) do |results|
     results.report("init:") do
@@ -45,6 +47,7 @@ if $PROGRAM_NAME == __FILE__
       end
     end
     results.report("one year:") do
+      require 'pry'; binding.pry; 1
       number_of_ticks.times do
         game.tick
       end

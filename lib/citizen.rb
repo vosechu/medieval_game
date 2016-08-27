@@ -59,7 +59,7 @@ class Citizen
       memo[k] = v
     end
 
-    @current_task = Object.new
+    @current_task = nil
   end
 
   def tick
@@ -90,9 +90,17 @@ class Citizen
 
   private
 
+  attr_accessor :current_task
+
   def find_something_to_do
     # FIXME: This will not work for multi-threaded
-    village.work_groups.first.sign_up(citizen: self)
+    return if busy?
+
+    current_task = village.work_groups.first.sign_up(citizen: self)
+  end
+
+  def busy?
+    !!current_task
   end
 
   def find_work

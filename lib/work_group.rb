@@ -23,7 +23,7 @@ class WorkGroup
   def sign_up(citizen:)
     @adults << citizen
 
-    return nil
+    return self
   end
 
   private

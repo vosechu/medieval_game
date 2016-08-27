@@ -3,7 +3,7 @@ class WorkGroup
 
   def initialize(name:, needs:)
     @name     = name
-    @needs   = needs
+    @needs    = needs
     @citizens = []
   end
 end

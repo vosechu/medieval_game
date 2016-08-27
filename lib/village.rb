@@ -4,14 +4,13 @@ require 'site'
 
 class Village < Site
   attr_accessor :game
-  attr_accessor :population, :defense_rating, :offense_rating
-  attr_accessor :citizens, :reeve
-  attr_accessor :structures, :stockpile, :fields
   attr_accessor :shire
+  attr_accessor :citizens, :reeve, :lord, :priest
+  attr_accessor :stockpile, :fields
   attr_accessor :comm_range
 
   def initialize(game:, map: nil, coordinates: nil)
-    super(map, coordinates)
+    super(map: map, coordinates: coordinates)
 
     @game           = game
 
@@ -21,7 +20,7 @@ class Village < Site
     # TODO: make a lord object that owns things
     @lord           = Citizen.new(village: self)
     # TODO: make a church object that owns things
-    @church         = Citizen.new(village: self)
+    @priest         = Citizen.new(village: self)
     @citizens       = []
     @families       = []
     # TODO: take the Reeve's work out of the collective labor pool

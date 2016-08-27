@@ -7,7 +7,7 @@ class Site
   attr_accessor :structures
   attr_accessor :neighbors, :coordinates
 
-  def initialize(map, coordinates)
+  def initialize(map:, coordinates:)
     @population     = 0
     @defense_rating = 0
     @offense_rating = 0

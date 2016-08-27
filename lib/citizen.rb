@@ -1,3 +1,5 @@
+require 'stockpile'
+
 class Citizen
   VALUES = {
     :welcoming_vs_defensive => 50,
@@ -37,18 +39,21 @@ class Citizen
     @highest_rank = 'serf'
     @titles       = []
 
-    @lord         = Object.new
-    @vassals      = []
-    @tenants      = []
-    @fields       = []
-    @manors       = []
+    # @lord         = Object.new
+    # @vassals      = []
+    # @tenants      = []
+    # @manors       = []
 
+    @head_of_family = true
+    @family       = Object.new
     @parents      = {}
     @benefactor   = Object.new # Who will give us stock if they die?
     @beneficiary  = Object.new # Who will receive our stock if I die?
     @spouse       = Object.new
     @pregnant_at  = Time.now
     @children     = []
+
+    @stockpile    = nil
 
     @values = VALUES.each_with_object({}) do |(k, v), memo|
       memo[k] = v
@@ -61,23 +66,25 @@ class Citizen
     find_something_to_do
   end
 
-  def self.after_event(_event, _action); end
-  def self.before_event(_event, _action); end
-  after_event :death, :find_next_beneficiary
+  # TODO: Does this properly dedup fields that exist in both the
+  # family stockpile and the personal stockpile? Also, should that
+  # ever happen?
+  def fields
+    stockpile.fields
+    stockpile.fields | family.fields if head_of_family?
+  end
+
+  def head_of_family?
+    @head_of_family
+  end
+
+  def acreage
+    fields.map(&:acreage).reduce(:+)
+  end
 
   private
 
   def find_something_to_do
-    village.work_groups
-    # If it's sunup, start to get up
-    # If there's a festival, do that
-    # If it's sunday, rest and go to church
-    # If I'm in need, deal with that first
-    # If I'm the reeve, the priest or a professional, do that
-    # If I have a current_task; do that
-    # If I'm young; Ask my parents to choose a work_group
-    # If I have too little work, pick a work_group at random from the village
-    # If I have too much work, advertise a work_group in the village
 
   end
 

@@ -1,10 +1,12 @@
 temp_ratios: &temp_ratios
-  fixed: {}
-  per_acre: {}
-  per_capita:
-    men: 10
-    women: 10
-    child: 10
+  fixed_per_day: {}
+  per_acre_per_day:
+    adults: 10
+    children: 10
+  per_unit: {}
+  fixed_percentage_time:
+    adults: 100 # percentage of population
+    days: 27 # number of days spent
 
 default:
   jan:
@@ -12,8 +14,13 @@ default:
     clear_ditches: &temp_ratios
     cut_wood: &temp_ratios
     breed_sows: &temp_ratios
-    spread_manure: &temp_ratios
-    camping_sport: &temp_ratios
+    spread_muck: # Manure
+      per_time:
+        adults: 100
+        days: 27
+    camping_sport: # TODO: What does this actually do for us in game?
+      per_acre_per_day:
+        children: 2.5 # 20-30 per game
     lambing: &temp_ratios # birth of lambs
 
   feb:
@@ -29,7 +36,10 @@ default:
     calving: &temp_ratios
 
   mar:
-    plow_and_harrow: &temp_ratios
+    plow_and_harrow:
+      per_acre_per_day:
+        adults: 1 # 0.79 - 1.85
+
     plant_spring_grains: &temp_ratios
     calving: &temp_ratios
 
@@ -42,7 +52,9 @@ default:
     farrowing: &temp_ratios # birth of piglets
 
   may:
-    weed_winter_corn: &temp_ratios
+    weed_winter_crops:
+      per_acre:
+        adults: 0.75
     fix_thatched_roofs: &temp_ratios
     plant_pulses: &temp_ratios # peas and beans
     capture_swarming_bees: &temp_ratios
@@ -52,12 +64,15 @@ default:
     shear_sheep: &temp_ratios
     shear_lambs: &temp_ratios
     harvest_hay: &temp_ratios
+    weed_summer_crops:
+      per_acre:
+        adults: 0.75
 
   jul:
     harvest_hay: &temp_ratios
     harvest_flax: &temp_ratios
     harvest_hemp: &temp_ratios
-    harvest_winter_corn: &temp_ratios
+    harvest_winter_crops: &temp_ratios
 
   aug:
     harvest_winter_grain: &temp_ratios

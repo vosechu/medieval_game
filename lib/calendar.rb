@@ -5,11 +5,10 @@ class Calendar
 
   class << self
     def date
-      @date ||= begin
-        date = Date.new(800, 1, 1)
-        date.new_start(Date::GREGORIAN)
-        date
-      end
+      @date ||= Date.new(800, 1, 1, Date::GREGORIAN)
+    end
+    def date=(date)
+      @date = date
     end
 
     def increment_date!
@@ -22,6 +21,10 @@ class Calendar
 
     def work_groups
       @work_groups ||= yaml_load("work_groups")
+    private
+
+    def month_name
+      date.strftime("%B").downcase
     end
 
     def season
@@ -37,7 +40,6 @@ class Calendar
       end
     end
 
-    private
 
     def yaml_load(file)
       File.open("config/#{file}.yml") { |file| YAML.load(file) }

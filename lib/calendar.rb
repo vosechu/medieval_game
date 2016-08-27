@@ -1,3 +1,4 @@
+require 'yaml'
 require 'active_support/core_ext/numeric/time'
 
 class Calendar
@@ -15,12 +16,13 @@ class Calendar
       @date += TICK_LENGTH
     end
 
-    def festivals
-      @festivals ||= yaml_load("festivals")
+    def months_activities
+      {
+        "festivals"   => festivals[month_name],
+        "work_groups" => work_groups[month_name]
+      }
     end
 
-    def work_groups
-      @work_groups ||= yaml_load("work_groups")
     private
 
     def month_name
@@ -40,6 +42,13 @@ class Calendar
       end
     end
 
+    def festivals
+      @festivals ||= yaml_load("festivals")["default"]
+    end
+
+    def work_groups
+      @work_groups ||= yaml_load("work_groups")["default"]
+    end
 
     def yaml_load(file)
       File.open("config/#{file}.yml") { |file| YAML.load(file) }

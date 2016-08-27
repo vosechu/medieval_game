@@ -85,7 +85,8 @@ class Citizen
   private
 
   def find_something_to_do
-
+    # FIXME: This will not work for multi-threaded
+    village.work_groups.first.sign_up(citizen: self)
   end
 
   def find_work

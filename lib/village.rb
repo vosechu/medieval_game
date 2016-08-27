@@ -1,6 +1,4 @@
-require 'yaml'
 require 'reeve'
-require 'work_group'
 require 'citizen'
 
 class Village
@@ -16,12 +14,17 @@ class Village
     @defense_rating = 0
     @offense_rating = 0
 
+    # TODO: make a lord object that owns things
+    @lord           = Citizen.new
+    # TODO: make a church object that owns things
+    @church         = Citizen.new
     @citizens       = []
-    @reeve          = Object.new
+    @families       = []
+    # TODO: take the Reeve's work out of the collective labor pool
+    @reeve          = Reeve.new
 
     @structures     = []
     @stockpile      = []
-    @fields         = []
 
     @neighbors      = []
     @shire          = Object.new
@@ -33,6 +36,10 @@ class Village
 
   def tick
     citizens.map { |c| c.tick }
+  end
+
+  def fields
+    citizens.map(&:fields) | lord.fields | church.fields
   end
 
   def professionals
@@ -55,21 +62,21 @@ class Village
   end
 
   def work_groups
-    all_work_groups[game.date.month]
+    reeve.work_groups
   end
 
   private
 
-  def all_work_groups
-    @all_work_groups ||= begin
-      work_groups = []
+  # def all_work_groups
+  #   @all_work_groups ||= begin
+  #     work_groups = []
 
-      wg_yml = File.open("config/work_groups.yml") { |file| YAML.load(file) }
-      wg_yml.each_pair { |job, needs| work_groups << WorkGroup.new(name: job, needs: needs) }
+  #     wg_yml = File.open("config/work_groups.yml") { |file| YAML.load(file) }
+  #     wg_yml.each_pair { |job, needs| work_groups << WorkGroup.new(name: job, needs: needs) }
 
-      work_groups
-    end
-  end
+  #     work_groups
+  #   end
+  # end
 
   def population
     @citizens.count

@@ -2,7 +2,8 @@ require 'spec_helper'
 require 'citizen'
 
 describe Citizen do
-  let(:village) { instance_double("Village", :work_groups => []) }
+  let(:work_groups) { [instance_double("WorkGroup", :sign_up => true)] }
+  let(:village) { instance_double("Village", :work_groups => work_groups) }
   subject { described_class.new(village: village) }
 
   describe 'initialization' do
@@ -16,7 +17,8 @@ describe Citizen do
     subject { described_class.new(village: village) }
 
     describe 'finding work to do' do
-      it 'exercises' do
+      it 'asks about work available' do
+        expect(village).to receive(:work_groups)
         subject.tick
       end
     end

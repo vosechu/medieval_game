@@ -3,7 +3,13 @@ require 'citizen'
 
 describe Citizen do
   let(:work_groups) { [instance_double("WorkGroup", :sign_up => true)] }
+  # before :each do
+  #   Celluloid.shutdown; Celluloid.boot
+  # end
+
   let(:village) { instance_double("Village", :work_groups => work_groups) }
+  # NOTE: We must put expectations on the wrapped object when using
+  # celluloid Actors
   subject { described_class.new(village: village) }
 
   describe 'initialization' do
@@ -12,6 +18,7 @@ describe Citizen do
       expect(subject.values[:test]).to eq(35)
     end
   end
+  # subject { described_class.new(village: village).wrapped_object }
 
   describe 'within a village' do
     subject { described_class.new(village: village) }

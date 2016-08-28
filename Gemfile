@@ -1,15 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'activesupport'
+gem 'celluloid'
 
 group :development, :test do
-  gem 'pry-byebug', :require => false
+  gem 'pry', :require => false
+  gem 'pry-byebug', :require => false, :platforms => :mri
   gem 'rubocop', :require => false
-  gem 'byebug', :require => false
+  gem 'byebug', :require => false, :platforms => :mri
   gem 'factory_girl'
 
-  gem 'guard', :require => false
-  gem 'guard-rspec', :require => false
+  gem 'guard', :require => false, :platforms => :ruby
+  gem 'guard-rspec', :require => false, :platforms => :ruby
   gem 'terminal-notifier-guard', :require => false
 end
 

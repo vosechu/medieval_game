@@ -8,8 +8,26 @@ GEM
       tzinfo (~> 1.1)
     ast (2.3.0)
     byebug (9.0.5)
+    celluloid (0.17.3)
+      celluloid-essentials
+      celluloid-extras
+      celluloid-fsm
+      celluloid-pool
+      celluloid-supervision
+      timers (>= 4.1.1)
+    celluloid-essentials (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-extras (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-fsm (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-pool (0.20.5)
+      timers (>= 4.1.1)
+    celluloid-supervision (0.20.6)
+      timers (>= 4.1.1)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.2-java)
     diff-lcs (1.2.5)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -29,6 +47,8 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    hitimes (1.2.4)
+    hitimes (1.2.4-java)
     i18n (0.7.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -48,6 +68,11 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.4-java)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      spoon (~> 0.0)
     pry-byebug (3.4.0)
       byebug (~> 9.0)
       pry (~> 0.10)
@@ -78,22 +103,30 @@ GEM
     ruby_dep (1.4.0)
     shellany (0.0.1)
     slop (3.6.0)
+    spoon (0.0.4)
+      ffi
     terminal-notifier-guard (1.7.0)
     thor (0.19.1)
     thread_safe (0.3.5)
+    thread_safe (0.3.5-java)
+    timers (4.1.1)
+      hitimes
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unicode-display_width (1.1.0)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
   activesupport
   byebug
+  celluloid
   factory_girl
   guard
   guard-rspec
+  pry
   pry-byebug
   rspec
   rubocop

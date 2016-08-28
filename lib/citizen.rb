@@ -1,3 +1,5 @@
+# require 'celluloid/current'
+
 require 'stockpile'
 
 class Citizen
@@ -18,6 +20,9 @@ class Citizen
     :orderly_govt_vs_dynamic_govt => 50,
     :lawful_vs_means_justify_the_ends => 50
   }
+  # include Celluloid
+  # include Celluloid::Notifications
+  # include Celluloid::Internals::Logger
 
   attr_accessor :village
   attr_accessor :health, :wealth, :satisfaction, :age, :gender
@@ -28,6 +33,8 @@ class Citizen
   attr_accessor :pregnant_at
 
   def initialize(village:)
+    # subscribe "tick", :tick
+
     @village      = village
 
     @health       = 100

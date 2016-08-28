@@ -1,8 +1,14 @@
+require 'celluloid/current'
+
 require 'reeve'
 require 'citizen'
 require 'site'
 
 class Village < Site
+  include Celluloid
+  include Celluloid::Notifications
+  include Celluloid::Internals::Logger
+
   attr_accessor :game
   attr_accessor :shire
   attr_accessor :citizens, :reeve, :lord, :priest
@@ -11,6 +17,8 @@ class Village < Site
 
   def initialize(game:, map: nil, coordinates: nil)
     super(map: map, coordinates: coordinates)
+
+    subscribe "tick", :tick
 
     @game           = game
 

@@ -1,11 +1,17 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
+require 'celluloid/current'
+
 require 'calendar'
 require 'citizen'
 require 'village'
 
 class MedievalGame
+  include Celluloid
+  include Celluloid::Notifications
+  include Celluloid::Internals::Logger
+
   attr_accessor :villages
 
   def initialize
@@ -14,7 +20,8 @@ class MedievalGame
 
   def tick
     Calendar.tick
-    villages.map { |village| village.tick }
+
+    publish "tick"
 
     return nil
   end

@@ -9,39 +9,38 @@ class Citizen
   # include Celluloid::Internals::Logger
 
   attr_accessor :village
-  attr_accessor :health, :wealth, :satisfaction, :age, :gender
-  attr_accessor :highest_rank, :titles
-  attr_accessor :lord, :vassals, :tenants, :fields, :manors
-  attr_accessor :parents, :spouse, :children
-  attr_accessor :pregnant_at
+  # attr_accessor :health, :wealth, :satisfaction, :age, :gender
+  # attr_accessor :highest_rank, :titles
+  # attr_accessor :lord, :vassals, :tenants, :fields, :manors
+  # attr_accessor :parents, :spouse, :children
+  # attr_accessor :pregnant_at
 
   def initialize(village:)
     # subscribe "tick", :tick
 
     @village      = village
 
-    @health       = 100
-    @wealth       = 100
-    @satisfaction = 100
-    @age          = 20
-    @gender       = 'male'
+    # @health       = 100
+    # @wealth       = 100
+    # @satisfaction = 100
+    # @age          = 20
+    # @gender       = 'male'
 
-    @highest_rank = 'serf'
-    @titles       = []
+    # @highest_rank = 'serf'
+    # @titles       = []
 
     # @lord         = Object.new
     # @vassals      = []
     # @tenants      = []
     # @manors       = []
 
-    @head_of_family = true
     @family       = Object.new
-    @parents      = {}
-    @benefactor   = Object.new # Who will give us stock if they die?
-    @beneficiary  = Object.new # Who will receive our stock if I die?
-    @spouse       = Object.new
-    @pregnant_at  = Time.now
-    @children     = []
+    # @parents      = {}
+    # @benefactor   = Object.new # Who will give us stock if they die?
+    # @beneficiary  = Object.new # Who will receive our stock if I die?
+    # @spouse       = Object.new
+    # @pregnant_at  = Time.now
+    # @children     = []
 
     @stockpile    = nil
 
@@ -67,9 +66,9 @@ class Citizen
     @head_of_family
   end
 
-  def acreage
-    fields.map(&:acreage).reduce(:+)
-  end
+  # def acreage
+  #   fields.map(&:acreage).reduce(:+)
+  # end
 
   def inspect
     "Citizen"

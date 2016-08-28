@@ -6,7 +6,7 @@ class Calendar
 
   class << self
     def date
-      @date ||= Date.new(800, 1, 1, Date::GREGORIAN)
+      @date ||= DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
     end
     def date=(date)
       @date = date

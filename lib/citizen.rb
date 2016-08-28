@@ -1,6 +1,7 @@
 # require 'celluloid/current'
 
 require 'stockpile'
+require 'calendar'
 
 class Citizen
   VALUES = {

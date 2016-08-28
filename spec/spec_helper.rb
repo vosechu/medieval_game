@@ -11,6 +11,6 @@ RSpec.configure do |rspec|
     #   Calendar.date = Date.new(800, 1, 1, Date::GREGORIAN)
     # end
     require 'calendar'
-    expect(Calendar.date).to eq(Date.new(800, 1, 1, Date::GREGORIAN))
+    expect(Calendar.date).to eq(DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN))
   end
 end

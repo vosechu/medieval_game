@@ -14,6 +14,7 @@ class Citizen
   # attr_accessor :lord, :vassals, :tenants, :fields, :manors
   # attr_accessor :parents, :spouse, :children
   # attr_accessor :pregnant_at
+  attr_reader :stockpile
 
   def initialize(village:)
     # subscribe "tick", :tick
@@ -48,8 +49,18 @@ class Citizen
   end
 
   def tick
-    find_something_to_do
+    return if sleeping?
+
+    unless busy?
+      current_task = find_something_to_do
+    end
+
     do_the_thing
+
+    # if current_task == true
+    # else
+    #   tick
+    # end
 
     return nil
   end
@@ -63,7 +74,7 @@ class Citizen
   end
 
   def head_of_family?
-    @head_of_family
+    family.head_of_family == self
   end
 
   # def acreage
@@ -80,22 +91,25 @@ class Citizen
 
   def find_something_to_do
     # FIXME: This will not work for multi-threaded
-    return if busy?
+    current_workgroup = village.work_groups.sample
+    return if current_workgroup.nil?
 
-    current_task = village.work_groups.first.sign_up(citizen: self)
+    if current_workgroup.sign_up(citizen: self)
+      self.current_task = current_workgroup
+    else
+      find_something_to_do
+    end
   end
 
   def do_the_thing
-    current_task.progress unless current_task.finished?
+    current_task.progress unless current_task.nil? || current_task.finished?
+  end
+
+  def sleeping?
+    Calendar.date.hour < 5 || Calendar.date.hour > 22
   end
 
   def busy?
     !!current_task
-  end
-
-  def find_work
-  end
-
-  def married?
   end
 end

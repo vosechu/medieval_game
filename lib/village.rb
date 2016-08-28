@@ -48,6 +48,8 @@ class Village < Site
 
   def tick
     citizens.map { |c| c.tick }
+    # Who has work to be done?
+    # Who would like to have jobs?
 
     return nil
   end

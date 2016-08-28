@@ -12,7 +12,7 @@ class WorkGroup
   end
 
   def finished?
-    completeness == 100
+    completeness >= 100
   end
 
   def full?
@@ -21,9 +21,12 @@ class WorkGroup
   end
 
   def sign_up(citizen:)
-    @adults << citizen
-
-    return self
+    if @adults.count < adults_needed
+      @adults << citizen
+      return true
+    else
+      return false
+    end
   end
 
   def progress
@@ -31,6 +34,14 @@ class WorkGroup
     when "fixed_per_day"
       @completeness += fullness.fdiv(duration) * 100
     end
+
+    # if finished?
+    #   info "DONE! #{@name}"
+    # else
+    #   info "Progress: #{@completeness} #{@name}"
+    # end
+
+    return nil
   end
 
   private

@@ -21,7 +21,8 @@ class MedievalGame
   def tick
     Calendar.tick
 
-    publish "tick"
+    # publish "tick"
+    villages.map(&:tick)
 
     return nil
   end

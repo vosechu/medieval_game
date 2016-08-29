@@ -5,7 +5,8 @@ describe WorkGroup do
   subject {
     described_class.new(
       name: "test",
-      needs: { "fixed_per_day" => { "adults" => 2, "days" => 10 } }
+      max_adults: 2,
+      person_days: 20
     )
   }
   let(:village) { instance_double("Village") }

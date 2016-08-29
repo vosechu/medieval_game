@@ -5,10 +5,10 @@ class WorkGroup
 
   attr_reader :name, :completeness, :adults, :type
 
-  def initialize(name:, needs:)
+  def initialize(name:, max_adults:, person_days:)
     @name         = name
-    @needs        = needs[needs.keys[0]]
-    @type         = needs.keys[0]
+    @max_adults   = max_adults
+    @person_days  = person_days
     @completeness = 0
     @adults       = 0
   end
@@ -18,11 +18,11 @@ class WorkGroup
   end
 
   def full?
-    adults == adults_needed
+    adults == max_adults
   end
 
   def sign_up
-    if adults < adults_needed
+    if adults < max_adults
       self.adults += 1
       return true
     else
@@ -35,10 +35,7 @@ class WorkGroup
   end
 
   def progress
-    case type
-    when "fixed_per_day"
-      self.completeness += fullness.fdiv(duration) * 100
-    end
+    self.completeness += adults.fdiv(person_days) * 100
 
     # if finished?
     #   info "DONE! #{name}"
@@ -54,29 +51,11 @@ class WorkGroup
   end
 
   def fullness
-    adults.fdiv(max_workers)
+    adults.fdiv(max_adults)
   end
 
   private
 
-  attr_reader :needs
+  attr_reader :needs, :max_adults, :person_days
   attr_writer :completeness, :adults
-
-  def max_workers
-    adults_needed
-  end
-
-  def adults_needed
-    case type
-    when "fixed_per_day"
-      needs["adults"] || 0
-    end
-  end
-
-  def duration
-    case type
-    when "fixed_per_day"
-      needs["days"] || 0
-    end
-  end
 end

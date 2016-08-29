@@ -8,8 +8,8 @@ class WorkGroup
 
   def initialize(name:, max_adults: 0, max_children: 0, person_days:)
     @name         = name
-    @max_adults   = max_adults
-    @max_children = max_children
+    @max_adults   = max_adults || 0
+    @max_children = max_children || 0
     @person_days  = person_days
     @completeness = 0
     @adults       = 0
@@ -44,11 +44,11 @@ class WorkGroup
   def progress
     self.completeness += worker_count.fdiv(person_days) * 100
 
-    # if finished?
-    #   info "DONE! #{name}"
-    # else
-    #   info "Progress: #{completeness} #{name}"
-    # end
+    if finished?
+      info "DONE! #{name}"
+    else
+      info "Progress: #{completeness} #{name}"
+    end
 
     return nil
   end

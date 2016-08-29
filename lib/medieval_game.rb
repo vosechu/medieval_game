@@ -37,7 +37,7 @@ if $PROGRAM_NAME == __FILE__
 
   number_of_villages = 10
   # number_of_villages = 9000
-  number_of_villagers = 100
+  number_of_villagers = 200
   # number_of_villagers = 500
   # number_of_ticks = 6
   number_of_ticks = 52.weeks / Calendar::TICK_LENGTH
@@ -56,6 +56,7 @@ if $PROGRAM_NAME == __FILE__
       results.report("init citizens:") do
         number_of_villagers.times do
           village.citizens << Citizen.new
+          village.citizens << Citizen.new(child: true)
         end
       end
     end

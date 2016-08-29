@@ -3,6 +3,7 @@ require 'celluloid/current'
 require 'citizen'
 require 'site'
 require 'work_group'
+require 'workers/work_group_advertiser'
 require 'field'
 require 'stockpile'
 
@@ -40,6 +41,8 @@ class Village < Site
     @work_groups = []
 
     @comm_modifier = 0
+
+    @work_group_advertiser_pool = WorkGroupAdvertiser.pool
   end
 
   def tick
@@ -51,7 +54,7 @@ class Village < Site
     end
 
     if Calendar.date.hour > 5 && Calendar.date.hour < 22
-      generate_work_groups if work_groups.empty?
+      generate_work_groups(fields: fields) if work_groups.empty?
       assign_citizens_to_work_groups
       get_shit_done
     else
@@ -85,6 +88,15 @@ class Village < Site
   #   }
   # end
 
+  def advertise_work_group(name:, max_adults:, max_children:, person_days:)
+    self.work_groups << WorkGroup.new(
+      name: name,
+      max_adults: max_adults,
+      max_children: max_children,
+      person_days: person_days
+    )
+  end
+
   private
 
   def comm_range
@@ -95,29 +107,14 @@ class Village < Site
     self.work_groups = []
   end
 
-  def generate_work_groups
+  def generate_work_groups(fields:)
     Calendar.months_activities["work_groups"].map do |name, needs|
-      type = needs.keys.first
-      values = needs.values.first
-
-      case type
-      when "fixed_per_day"
-        self.work_groups << WorkGroup.new(
-          name: name,
-          max_adults: values["max_adults"] || 0,
-          max_children: values["max_children"] || 0,
-          person_days: values["person_days"]
-        )
-      when "per_acre_per_day"
-        fields.map do |field|
-          self.work_groups << WorkGroup.new(
-            name: "#{name} #{field.object_id}",
-            max_adults: ((values["max_adults"] || 0) * field.acreage).ceil,
-            max_children: ((values["max_children"] || 0) * field.acreage).ceil,
-            person_days: ((values["max_adults"] || 0) + (values["max_children"] || 0)) * field.acreage
-          )
-        end
-      end
+      @work_group_advertiser_pool.async.call(
+        village: Actor.current,
+        fields: fields,
+        name: name,
+        needs: needs
+      )
     end
 
     return nil

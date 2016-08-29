@@ -106,8 +106,8 @@ class Village < Site
       wg = available_work_groups.sample
 
       unless wg.nil?
-        wg.sign_up(citizen: citizen)
-        citizen.sign_up(work_group: wg)
+        wg.sign_up
+        citizen.sign_up
       end
     end
 

@@ -10,7 +10,7 @@ class WorkGroup
     @needs        = needs[needs.keys[0]]
     @type         = needs.keys[0]
     @completeness = 0
-    @adults       = []
+    @adults       = 0
   end
 
   def finished?
@@ -18,12 +18,12 @@ class WorkGroup
   end
 
   def full?
-    adults.count == adults_needed
+    adults == adults_needed
   end
 
-  def sign_up(citizen:)
-    if adults.count < adults_needed
-      self.adults << citizen
+  def sign_up
+    if adults < adults_needed
+      self.adults += 1
       return true
     else
       return false
@@ -31,7 +31,7 @@ class WorkGroup
   end
 
   def empty
-    self.adults = []
+    self.adults = 0
   end
 
   def progress
@@ -54,7 +54,7 @@ class WorkGroup
   end
 
   def fullness
-    adults.count.fdiv(max_workers)
+    adults.fdiv(max_workers)
   end
 
   private

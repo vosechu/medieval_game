@@ -14,8 +14,8 @@ describe WorkGroup do
 
   describe 'full work group' do
     before :each do
-      subject.sign_up(citizen: citizen1)
-      subject.sign_up(citizen: citizen2)
+      subject.sign_up
+      subject.sign_up
     end
 
     it 'reports that it is full' do
@@ -37,7 +37,7 @@ describe WorkGroup do
 
   describe 'half-full work group' do
     before :each do
-      subject.sign_up(citizen: citizen1)
+      subject.sign_up
     end
 
     it 'reports that it is not full' do

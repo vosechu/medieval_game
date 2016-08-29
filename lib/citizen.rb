@@ -42,15 +42,15 @@ class Citizen
     @stockpile    = Stockpile.new
     @fields       = [Field.new]
 
-    @current_task = nil
+    @busy = false
   end
 
-  def sign_up(work_group:)
-    self.current_task = work_group
+  def sign_up
+    self.busy = true
   end
 
   def leave
-    self.current_task = nil
+    self.busy = false
   end
 
   # # TODO: Does this properly dedup fields that exist in both the

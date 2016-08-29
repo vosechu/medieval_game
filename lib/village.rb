@@ -29,7 +29,7 @@ class Village < Site
     @reeve          = Citizen.new
 
     @stockpile    = Stockpile.new
-    @fields       = [Field.new]
+    @fields       = [Field.new(acres: 10)]
 
     @shire          = Object.new
 
@@ -62,7 +62,8 @@ class Village < Site
   end
 
   def fields
-    citizens.map(&:fields).flatten # | families.fields | lord.fields | church.fields
+    [Field.new(acres: 200)]
+    # citizens.map(&:fields).flatten # | families.fields | lord.fields | church.fields
   end
 
   # def professionals

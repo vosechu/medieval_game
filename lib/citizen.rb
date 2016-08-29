@@ -42,7 +42,7 @@ class Citizen
     @child        = child
 
     @stockpile    = Stockpile.new
-    @fields       = [Field.new]
+    @fields       = [Field.new(acres: 10)]
 
     @busy = false
   end

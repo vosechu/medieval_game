@@ -15,7 +15,7 @@ class Family
     @next_in_line = Object.new
 
     @stockpile    = Stockpile.new
-    @fields       = [Field.new]
+    @fields       = [Field.new(acres: 10)]
   end
 
   def acreage # Total for Weisbach was 45d/acre

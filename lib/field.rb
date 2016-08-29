@@ -1,7 +1,7 @@
 class Field
   attr_reader :acreage
 
-  def initialize
-    @acreage = 10
+  def initialize(acres:)
+    @acreage = acres || 10
   end
 end

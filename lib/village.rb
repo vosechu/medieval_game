@@ -3,7 +3,6 @@ require 'celluloid/current'
 require 'citizen'
 require 'site'
 require 'work_group'
-require 'workers/work_group_advertiser'
 require 'field'
 require 'stockpile'
 
@@ -41,8 +40,6 @@ class Village < Site
     @work_groups = []
 
     @comm_modifier = 0
-
-    @work_group_advertiser_pool = WorkGroupAdvertiser.pool
   end
 
   def tick
@@ -109,12 +106,27 @@ class Village < Site
 
   def generate_work_groups(fields:)
     Calendar.months_activities["work_groups"].map do |name, needs|
-      @work_group_advertiser_pool.async.call(
-        village: Actor.current,
-        fields: fields,
-        name: name,
-        needs: needs
-      )
+      type = needs.keys.first
+      values = needs.values.first
+
+      case type
+      when "fixed_per_day"
+        advertise_work_group(
+          name: name,
+          max_adults: values["max_adults"],
+          max_children: values["max_children"],
+          person_days: values["person_days"]
+        )
+      when "per_acre_per_day"
+        fields.map do |field|
+          advertise_work_group(
+            name: "#{name} #{field.object_id}",
+            max_adults: ((values["max_adults"] || 0) * field.acreage).ceil,
+            max_children: ((values["max_children"] || 0) * field.acreage).ceil,
+            person_days: ((values["max_adults"] || 0) + (values["max_children"] || 0)) * field.acreage
+          )
+        end
+      end
     end
 
     return nil

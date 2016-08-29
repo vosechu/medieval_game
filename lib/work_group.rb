@@ -44,11 +44,11 @@ class WorkGroup
   def progress
     self.completeness += worker_count.fdiv(person_days) * 100
 
-    if finished?
-      info "DONE! #{name}"
-    else
-      info "Progress: #{completeness} #{name}"
-    end
+    # if finished?
+    #   info "DONE! #{name}"
+    # else
+    #   info "Progress: #{completeness} #{name}"
+    # end
 
     return nil
   end

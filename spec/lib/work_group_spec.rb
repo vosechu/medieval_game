@@ -9,8 +9,8 @@ describe WorkGroup do
     )
   }
   let(:village) { instance_double("Village") }
-  let(:citizen1) { instance_double("Citizen", :village => village) }
-  let(:citizen2) { instance_double("Citizen", :village => village) }
+  let(:citizen1) { instance_double("Citizen", :current_task= => nil) }
+  let(:citizen2) { instance_double("Citizen", :current_task= => nil) }
 
   describe 'full work group' do
     before :each do

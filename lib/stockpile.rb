@@ -1,12 +1,9 @@
+require 'celluloid/current'
+
 class Stockpile
-  attr_accessor :fields
+  include Celluloid::Internals::Logger
 
   def initialize
-    @fields = [Field.new, Field.new, Field.new, Field.new, Field.new]
-  end
-
-  def acreage # Total for Weisbach was 45d/acre
-    fields.map(&:acreage).reduce(:+)
   end
 
   def structures

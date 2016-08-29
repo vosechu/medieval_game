@@ -1,6 +1,9 @@
+require 'celluloid/current'
+
 class WorkGroup
-  attr_accessor :citizens
-  attr_reader :completeness
+  include Celluloid::Internals::Logger
+
+  attr_reader :name, :completeness, :adults, :type
 
   def initialize(name:, needs:)
     @name         = name
@@ -8,7 +11,6 @@ class WorkGroup
     @type         = needs.keys[0]
     @completeness = 0
     @adults       = []
-    @children     = []
   end
 
   def finished?
@@ -16,58 +18,58 @@ class WorkGroup
   end
 
   def full?
-    adults.count == adults_needed &&
-      children.count == children_needed
+    adults.count == adults_needed
   end
 
   def sign_up(citizen:)
-    if @adults.count < adults_needed
-      @adults << citizen
+    if adults.count < adults_needed
+      self.adults << citizen
       return true
     else
       return false
     end
   end
 
+  def empty
+    self.adults = []
+  end
+
   def progress
     case type
     when "fixed_per_day"
-      @completeness += fullness.fdiv(duration) * 100
+      self.completeness += fullness.fdiv(duration) * 100
     end
 
     # if finished?
-    #   info "DONE! #{@name}"
+    #   info "DONE! #{name}"
     # else
-    #   info "Progress: #{@completeness} #{@name}"
+    #   info "Progress: #{completeness} #{name}"
     # end
 
     return nil
   end
 
-  private
-
-  attr_reader :needs, :type, :adults, :children
-  attr_writer :completeness
-
-  def max_workers
-    adults_needed + children_needed
+  def to_s
+    "#{name}: fullness - #{fullness}, progress - #{completeness}"
   end
 
   def fullness
-    (@adults.count + @children.count).fdiv(max_workers)
+    adults.count.fdiv(max_workers)
+  end
+
+  private
+
+  attr_reader :needs
+  attr_writer :completeness, :adults
+
+  def max_workers
+    adults_needed
   end
 
   def adults_needed
     case type
     when "fixed_per_day"
       needs["adults"] || 0
-    end
-  end
-
-  def children_needed
-    case type
-    when "fixed_per_day"
-      needs["children"] || 0
     end
   end
 

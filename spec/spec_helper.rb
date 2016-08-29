@@ -8,7 +8,7 @@ RSpec.configure do |rspec|
     # If this fails, you need to reset the date after one of your specs
     # Use this after block:
     # after :each do
-    #   Calendar.date = Date.new(800, 1, 1, Date::GREGORIAN)
+    #   Calendar.date = DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
     # end
     require 'calendar'
     expect(Calendar.date).to eq(DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN))

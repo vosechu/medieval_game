@@ -8,7 +8,7 @@ Check your ruby version, needs to be >= 2.2.5, >= 2.3.1
 
 ```
 $ ruby -v
-ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin15]
+ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]
 ```
 
 If you aren't at 2.2.5+ or 2.3.1+

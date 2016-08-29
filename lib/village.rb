@@ -103,15 +103,17 @@ class Village < Site
       when "fixed_per_day"
         self.work_groups << WorkGroup.new(
           name: name,
-          max_adults: values["max_adults"],
+          max_adults: values["max_adults"] || 0,
+          max_children: values["max_children"] || 0,
           person_days: values["person_days"]
         )
       when "per_acre_per_day"
         fields.map do |field|
           self.work_groups << WorkGroup.new(
-            name: "field #{field.object_id}",
-            max_adults: values["max_adults"],
-            person_days: field.acreage
+            name: "#{name} #{field.object_id}",
+            max_adults: ((values["max_adults"] || 0) * field.acreage).ceil,
+            max_children: ((values["max_children"] || 0) * field.acreage).ceil,
+            person_days: ((values["max_adults"] || 0) + (values["max_children"] || 0)) * field.acreage
           )
         end
       end
@@ -127,7 +129,7 @@ class Village < Site
       wg = available_work_groups.sample
 
       unless wg.nil?
-        wg.sign_up
+        wg.sign_up(child: citizen.child?)
         citizen.sign_up
       end
     end

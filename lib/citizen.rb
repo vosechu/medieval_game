@@ -16,7 +16,7 @@ class Citizen
 
   attr_accessor :busy
 
-  def initialize
+  def initialize(child: false)
     # @health       = 100
     # @wealth       = 100
     # @satisfaction = 100
@@ -39,10 +39,16 @@ class Citizen
     # @pregnant_at  = Time.now
     # @children     = []
 
+    @child        = child
+
     @stockpile    = Stockpile.new
     @fields       = [Field.new]
 
     @busy = false
+  end
+
+  def child?
+    !!@child
   end
 
   def sign_up

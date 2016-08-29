@@ -6,17 +6,18 @@ describe WorkGroup do
     described_class.new(
       name: "test",
       max_adults: 2,
-      person_days: 20
+      max_children: 2,
+      person_days: 40
     )
   }
   let(:village) { instance_double("Village") }
-  let(:citizen1) { instance_double("Citizen", :current_task= => nil) }
-  let(:citizen2) { instance_double("Citizen", :current_task= => nil) }
 
   describe 'full work group' do
     before :each do
       subject.sign_up
       subject.sign_up
+      subject.sign_up(child: true)
+      subject.sign_up(child: true)
     end
 
     it 'reports that it is full' do
@@ -39,6 +40,7 @@ describe WorkGroup do
   describe 'half-full work group' do
     before :each do
       subject.sign_up
+      subject.sign_up(child: true)
     end
 
     it 'reports that it is not full' do

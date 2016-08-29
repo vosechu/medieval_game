@@ -26,9 +26,9 @@ default:
       #   adults: 100
       #   days: 27
     camping_sport:
-      <<: *temp_ratios # TODO: What does this actually do for us in game?
-      # per_acre_per_day:
-      #   children: 2.5 # 20-30 per game
+      # TODO: What does this actually do for us in game?
+      per_acre_per_day:
+        max_children: 2.5 # 20-30 per game / 10 hours
     lambing:
       <<: *temp_ratios # birth of lambs
 
@@ -80,9 +80,8 @@ default:
 
   may:
     weed_winter_crops:
-      <<: *temp_ratios
-      # per_acre:
-      #   adults: 0.75
+      per_acre_per_day:
+        max_adults: 0.75
     fix_thatched_roofs:
       <<: *temp_ratios
     plant_pulses:
@@ -100,9 +99,8 @@ default:
     harvest_hay:
       <<: *temp_ratios
     weed_summer_crops:
-      <<: *temp_ratios
-      # per_acre:
-      #   adults: 0.75
+      per_acre:
+        adults: 0.75
 
   july:
     harvest_hay:

@@ -18,6 +18,7 @@ describe MedievalGame do
     game.villages.each do |village|
       number_of_villagers.times do
         village.citizens << Citizen.new
+        village.citizens << Citizen.new(child: true)
       end
     end
     number_of_ticks.times do

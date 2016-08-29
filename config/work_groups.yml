@@ -3,12 +3,12 @@ temp_ratios: &temp_ratios
     max_adults: 2
     person_days: 20
   # per_acre_per_day:
-  #   adults: 10
-  #   children: 10
+  #   max_adults: 10
+  #   max_children: 10
   # per_unit: {}
   # fixed_percentage_time:
-  #   adults: 100 # percentage of population
-  #   days: 27 # number of days spent
+  #   max_adults: 100 # percentage of population
+  #   person_days: 27 * population count # number of days spent
 
 default:
   january:
@@ -56,9 +56,8 @@ default:
 
   march:
     plow_and_harrow:
-      # <<: *temp_ratios
       per_acre_per_day:
-        adults: 1 # 0.79 - 1.85
+        max_adults: 1 # 0.79 - 1.85
 
     plant_spring_grains:
       <<: *temp_ratios

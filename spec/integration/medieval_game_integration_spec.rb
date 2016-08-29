@@ -7,9 +7,9 @@ describe MedievalGame do
   end
 
   it 'runs one tick without exploding' do
-    number_of_villages = 10
-    number_of_villagers = 100
-    number_of_ticks = 1
+    number_of_villages = 1
+    number_of_villagers = 10
+    number_of_ticks = 52.weeks / Calendar::TICK_LENGTH
 
     game = MedievalGame.new
     number_of_villages.times do

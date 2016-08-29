@@ -44,6 +44,9 @@ class Village < Site
 
   def tick
     if Calendar.date.mday == 1 && Calendar.date.hour == 1
+      # FIXME: This may be deleting tasks that still need to be done
+      # TODO: Implement max amount of time to try a thing. Like, we
+      # could only plant so much this year, so that sucks.
       reset_work_groups
     end
 
@@ -58,9 +61,9 @@ class Village < Site
     return nil
   end
 
-  # def fields
-  #   citizens.map(&:fields) | lord.fields | church.fields
-  # end
+  def fields
+    citizens.map(&:fields).flatten # | families.fields | lord.fields | church.fields
+  end
 
   # def professionals
   #   {
@@ -92,8 +95,26 @@ class Village < Site
   end
 
   def generate_work_groups
-    self.work_groups = Calendar.months_activities["work_groups"].map do |name, needs|
-      WorkGroup.new(name: name, needs: needs)
+    Calendar.months_activities["work_groups"].map do |name, needs|
+      type = needs.keys.first
+      values = needs.values.first
+
+      case type
+      when "fixed_per_day"
+        self.work_groups << WorkGroup.new(
+          name: name,
+          max_adults: values["max_adults"],
+          person_days: values["person_days"]
+        )
+      when "per_acre_per_day"
+        fields.map do |field|
+          self.work_groups << WorkGroup.new(
+            name: "field #{field.object_id}",
+            max_adults: values["max_adults"],
+            person_days: field.acreage
+          )
+        end
+      end
     end
 
     return nil

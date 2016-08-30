@@ -8,14 +8,24 @@ class Family
 
   attr_reader :stockpile, :fields
 
-  def initialize
+  def initialize(head:, next_in_line:, children:)
     @name = ""
 
-    @head_of_family = Object.new
-    @next_in_line = Object.new
+    @head_of_family = head
+    @next_in_line = next_in_line
+    @children = children || []
 
     @stockpile    = Stockpile.new
-    @fields       = [Field.new(acres: 10)]
+    @fields       = [
+      Field.new(acres: 180),
+      Field.new(acres: 180),
+      Field.new(acres: 180),
+    ]
+  end
+
+  attr_reader :children
+  def adults
+    [@head, @next_in_line]
   end
 
   def acreage # Total for Weisbach was 45d/acre

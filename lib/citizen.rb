@@ -67,10 +67,6 @@ class Citizen
   #   stockpile.fields | family.fields if head_of_family?
   # end
 
-  # def head_of_family?
-  #   family.head_of_family == self
-  # end
-
   def acreage # Total for Weisbach was 45d/acre
     fields.map(&:acreage).reduce(:+)
   end

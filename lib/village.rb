@@ -13,7 +13,7 @@ class Village < Site
 
   attr_accessor :shire
   attr_accessor :comm_range
-  attr_accessor :work_groups
+  attr_accessor :work_groups, :families
   attr_reader :citizens
 
   def initialize(map: nil, coordinates: nil)
@@ -23,7 +23,6 @@ class Village < Site
     @lord           = Citizen.new
     # TODO: make a church object that owns things
     @priest         = Citizen.new
-    @citizens       = []
     @families       = []
     # TODO: take the Reeve's work out of the collective labor pool
     @reeve          = Citizen.new
@@ -61,9 +60,15 @@ class Village < Site
     return nil
   end
 
+  def citizens
+    citizens = families.map do |family|
+      [family.adults, family.children]
+    end
+    citizens.flatten.compact
+  end
+
   def fields
-    [Field.new(acres: 200)]
-    # citizens.map(&:fields).flatten # | families.fields | lord.fields | church.fields
+    families.map(&:fields).flatten # | families.fields | lord.fields | church.fields
   end
 
   # def professionals
@@ -101,6 +106,7 @@ class Village < Site
   end
 
   def reset_work_groups
+    # info "NOT FINISHED! #{self.work_groups.reject(&:finished?)}"
     self.work_groups = []
   end
 

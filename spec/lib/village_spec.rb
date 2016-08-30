@@ -14,7 +14,7 @@ describe Village do
     it 'resets on the first of the month' do
       Calendar.date = DateTime.new(800, 1, 1, 1, 0, 0, 0, Date::GREGORIAN)
 
-      subject.work_groups = [instance_double("WorkGroup")]
+      subject.work_groups = [instance_double("WorkGroup", :finished? => true)]
       subject.send(:reset_work_groups)
       expect(subject.work_groups).to eq([])
     end

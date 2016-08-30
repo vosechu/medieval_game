@@ -6,6 +6,7 @@ require 'celluloid/current'
 require 'calendar'
 require 'citizen'
 require 'village'
+require 'family'
 
 class MedievalGame
   include Celluloid
@@ -54,9 +55,16 @@ if $PROGRAM_NAME == __FILE__
     end
     game.villages.each do |village|
       results.report("init citizens:") do
-        number_of_villagers.times do
-          village.citizens << Citizen.new
-          village.citizens << Citizen.new(child: true)
+        (number_of_villagers/6).times do
+          village.families << Family.new(
+            head: Citizen.new,
+            next_in_line: Citizen.new,
+            children: [
+              Citizen.new(child: true),
+              Citizen.new(child: true),
+              Citizen.new(child: true),
+              Citizen.new(child: true)]
+          )
         end
       end
     end

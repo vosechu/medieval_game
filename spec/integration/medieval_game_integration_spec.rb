@@ -16,9 +16,16 @@ describe MedievalGame do
       game.villages << Village.new(map: "", coordinates: "")
     end
     game.villages.each do |village|
-      number_of_villagers.times do
-        village.citizens << Citizen.new
-        village.citizens << Citizen.new(child: true)
+      (number_of_villagers/6).times do
+        village.families << Family.new(
+          head: Citizen.new,
+          next_in_line: Citizen.new,
+          children: [
+            Citizen.new(child: true),
+            Citizen.new(child: true),
+            Citizen.new(child: true),
+            Citizen.new(child: true)]
+        )
       end
     end
     number_of_ticks.times do

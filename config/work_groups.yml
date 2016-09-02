@@ -1,7 +1,8 @@
 temp_ratios: &temp_ratios
-  fixed_per_day:
-    max_adults: 2
-    person_days: 20
+  {}
+  # fixed_per_day:
+  #   max_adults: 2
+  #   person_days: 20
   # per_acre_per_day:
   #   max_adults: 10
   #   max_children: 10
@@ -11,166 +12,405 @@ temp_ratios: &temp_ratios
   #   person_days: 27 * population count # number of days spent
 
 default:
+  # January & February - work indoors repairing hunting nets, sharpening tools,
+  # making utensils - on mild days work outdoors gather firewood, prune vines
+  # and mend fences.
+  # March - work in the fields,  plowing and cultivating.
+  # April - clean ditches, pruning trees, fixing sheds, hauling timber,
+  # and repairing roofs
+  # May -  sheep cleaning and shearing,  planting and field maintenance
+  # June - mowing hay crop and raking it into piles
+  # July - harvest grains, bundle sheaves, weeding gardens
+  # August - threshing and winnowing of grains, grinding of grains into flower
+  # September - fruits picked and dried or stored, grapes picked and pressed
+  # for juice and wine
+  # October - gather nuts, roots, berries, and mushrooms, fields plowed and
+  # empty fields sown with winter wheat, repairing and cleaning equipment.
+  # November - firewood gathered, split, and stacked for themselves and the
+  # lord, pigs and cows slaughtered and meat smoked,  flex and hemp processed
+  # to make thread and rope
+  # December - trim trees, grape vines pruned, and hunting
+  # Adapted from Nikola-Lisa, W. "Till year's good end: a calendar of Medieval Labor/" 1997
+  # (Great Children's book on middle ages.)
+  # http://historylink101.com/lessons/farm-city/middle-ages.htm
+
+  # January: Clear ditches; cut wood; breed sows; spread manure; "camping"; early lambs born.
+  # February: Prune grapes and fruit trees; prune and mend hedgerows; mend fences; kill moles; plant willow; add lime, chalk and manure to soil; lambing continues; calving begins.
+  # March: Plow and harrow as soon as the ground is soft enough; sow spring grains; calving continues.
+  # April: Plant onions and leeks; plant flax; wean calves; get milking and dairy work underway; farrowing (birth of piglets).
+  # May: Weed winter corn; remove moss from thatched roofs and repair; sow pulses; capture swarming bees; mark sheep; plant beets, carrots, cabbages, and other garden vegetables.
+  # June: Wash and shear sheep; shear lambs later in the month; start mowing hay.
+  # July: Keep mowing that hay; harvest flax and hemp; begin harvesting winter corn.
+  # August: Finish harvesting winter grain, begin on spring grain; gather in straw; plant turnips.
+  # September: Harvest peas; breed cattle; harvest honey; plow fields for winter grain; sow winter wheat and rye; harvest apples, blackberries; take excess stock to market.
+  # October: Sow winter barley and oats; harvest grapes; make wine and verjuice; breed sheep; let pigs forage on acorns and beechnuts.
+  # November: Unsuspecting pigs get fatter and fatter; take in firewood; threshing and winnowing continue through the winter.
+  # December: Slaughter hogs; never too early to shovel manure; Merry Christmas!
+  # http://www.strangehorizons.com/2001/20010212/agriculture.shtml
+
+  # Januar: By thys fyre I warme my handys
+  # Februar: And with my spade I delfe my landys
+  # Marche: Here I sette my thynge to sprynge
+  # Aprile: And here I here the fowlis synge
+  # Maii: I am as lught as burdie in bowe
+  # Junii: And I wede my corn well mow
+  # Julii: With my sythe my mede I mowe
+  # Auguste: And here I shere my corne full lowe
+  # September: And with my flaylle I erne my brede
+  # October: And here I sawe my whete so rede
+  # November: At Martynesmasse I kylle my syne
+  # December: And at Chritemasse I drynke redde wyne
+  # -- anonymous (Raymond Oliver, Poems without names: the English Lyric 1200-1500).
+
   january:
-    process_grains:
-      <<: *temp_ratios # threshing and winnowing
-    clear_ditches:
-      <<: *temp_ratios
-    cut_wood:
-      <<: *temp_ratios
-    breed_sows:
-      <<: *temp_ratios
-    spread_muck:
-      <<: *temp_ratios # Manure
-      # fixed_percentage_time:
-      #   adults: 100
-      #   days: 27
-    camping_sport:
-      # TODO: What does this actually do for us in game?
-      per_acre_per_day:
-        max_children: 2.5 # 20-30 per game / 10 hours
-    lambing:
-      <<: *temp_ratios # birth of lambs
+    # cut_wood:
+    #   <<: *temp_ratios
+    # breed_sows:
+    #   <<: *temp_ratios
 
   february:
-    prune_grapes:
+    spring_add_lime_chalk_and_manure: # improve bonus_fertility
       <<: *temp_ratios
-    prune_fruit_trees:
-      <<: *temp_ratios
-    prune_hedgerows:
-      <<: *temp_ratios
-    fix_hedgerows:
-      <<: *temp_ratios
-    fix_fences:
-      <<: *temp_ratios
-    kill_moles:
-      <<: *temp_ratios
-    plant_willow:
-      <<: *temp_ratios
-    add_lime_chalk_and_manure_to_soil:
-      <<: *temp_ratios
-    lambing:
-      <<: *temp_ratios
-    calving:
-      <<: *temp_ratios
+
+    # prune_grapes:
+    #   <<: *temp_ratios
+    # prune_fruit_trees:
+    #   <<: *temp_ratios
+    # prune_hedgerows:
+    #   <<: *temp_ratios
+    # fix_hedgerows:
+    #   <<: *temp_ratios
+    # fix_fences:
+    #   <<: *temp_ratios
+    # kill_moles:
+    #   <<: *temp_ratios
+    # plant_willow:
+    #   <<: *temp_ratios
+    # lambing:
+    #   <<: *temp_ratios
+    # calving:
+    #   <<: *temp_ratios
 
   march:
-    plow_and_harrow:
+    spring_plow_fields: # improve bonus_yield
       per_acre_per_day:
         max_adults: 1 # 0.79 - 1.85
+        # oxen: 8
 
-    plant_spring_grains:
-      <<: *temp_ratios
-    calving:
-      <<: *temp_ratios
+    # calving:
+    #   <<: *temp_ratios
 
   april:
-    plant_onions_and_leeks:
+    spring_clear_ditches: # improve bonus_fertility
       <<: *temp_ratios
-    plant_flax:
+    spring_spread_muck: # improve bonus_fertility
       <<: *temp_ratios
-    plant_hemp:
+      # fixed_percentage_time:
+      #   max_adults: 100
+      #   days: 27
+
+    spring_plant_oats: # improve percent_sown
       <<: *temp_ratios
-    wean_calves:
+    spring_plant_barley: # improve percent_sown
       <<: *temp_ratios
-    milking_and_dairy_work:
+    spring_harrow: # improve bonus_yield
       <<: *temp_ratios
-    farrowing:
-      <<: *temp_ratios # birth of piglets
+
+    fallow_plow_fields: # improve bonus_yield
+      <<: *temp_ratios
+
+    # plant_onions_and_leeks:
+    #   <<: *temp_ratios
+    # plant_flax:
+    #   <<: *temp_ratios
+    # plant_hemp:
+    #   <<: *temp_ratios
+    # wean_calves:
+    #   <<: *temp_ratios
+    # farrowing:
+    #   <<: *temp_ratios # birth of piglets
 
   may:
-    weed_winter_crops:
-      per_acre_per_day:
-        max_adults: 0.75
-    fix_thatched_roofs:
+    # "Children would defend the newly-sown seed from crows and other marauding
+    # birds with slings: only the lord's doves were sacrosanct and killing one
+    # brought a heavy penalty. The doves could cause considerable damage to
+    # crops and they were a hated symbol of the lord's power."
+    defend_plants_from_birds: # improve bonus_yield
       <<: *temp_ratios
-    plant_pulses:
-      <<: *temp_ratios # peas and beans
-    capture_swarming_bees:
-      <<: *temp_ratios
-    plant_garden_vegetables:
-      <<: *temp_ratios
+
+    # plant_pulses:
+    #   <<: *temp_ratios # peas and beans
+    # capture_swarming_bees:
+    #   <<: *temp_ratios
+    # plant_garden_vegetables:
+    #   <<: *temp_ratios
+
+    # Between May and Michaelmas (September 29) each cow was expected to
+    # produce seven stones (98lb) of cheese and a stone (14lb) of butter.
+    # milking_and_dairy_work:
+    #   <<: *temp_ratios
+
+    # Any time left over was spent on maintenance work - hedging,
+    # ditching, repairing fences and buildings.
+    # fix_thatched_roofs:
+    #   <<: *temp_ratios
+    # repairs_and_maintenance:
+    #   <<: *temp_ratios
 
   june:
-    shear_sheep:
+    fallow_plow_fields_deeply: # improve bonus_yield
       <<: *temp_ratios
-    shear_lambs:
+    fallow_spread_muck: # improve bonus_fertility
       <<: *temp_ratios
-    harvest_hay:
+    # "Each acre could support two sheep; cattle required about two acres each."
+    # "Beasts were not permitted to graze the meadows until at least a month
+    # after the haymaking to give the grass a chance to recover."
+    fallow_pasture_animals: # improve bonus_fertility
       <<: *temp_ratios
-    weed_summer_crops:
-      per_acre:
-        adults: 0.75
+
+    # shear_sheep:
+    #   <<: *temp_ratios
+    # shear_lambs: # late in june, 3-4y/o lambs produced decently sized fleeces
+    #   <<: *temp_ratios
+    # harvest_hay:
+    #   per_acre:
+    #     max_adults: 2 "Teams of men moved down the meadow in lines, each expected to mow about an acre a day" - Penultiharn
+    #     max_children: 1 "Women and children followed to turn the hay behind them to ensure it dried evenly."
 
   july:
-    harvest_hay:
+    spring_weed_crops: # improve bonus_yield
+      per_acre:
+        max_adults: 0.75
+    winter_weed_crops: # improve bonus_yield
+      per_acre:
+        max_adults: 0.75
+
+    # "July was the hungry month. Grain stores were at their lowest ebb,
+    # awaiting replenishment from the forthcoming harvest, and peasants
+    # in need eked out their diet by foraging and many no doubt by poaching. "
+    foraging_and_poaching:
       <<: *temp_ratios
-    harvest_flax:
-      <<: *temp_ratios
-    harvest_hemp:
-      <<: *temp_ratios
-    harvest_winter_crops:
-      <<: *temp_ratios
+
+    # harvest_flax:
+    #   <<: *temp_ratios
+    # harvest_hemp:
+    #   <<: *temp_ratios
 
   august:
-    harvest_winter_grain:
-      <<: *temp_ratios
-    harvest_spring_grain:
-      <<: *temp_ratios
-    harvest_straw:
-      <<: *temp_ratios
-    plant_turnips:
-      <<: *temp_ratios
+    # "The winter crops (wheat and rye) ripened and were harvested first,
+    # followed by the spring grains (barley and oats)."
+    # "several dry, sunny days were required to bring the harvest in."
+    # "In a pinch unripe or rain-dampened grain could be harvested and
+    # placed in special corn-drying ovens, though these were more common
+    # in upland areas where the growing season was short."
+    winter_harvest_grains: # calculate final_yield
+      per_acre:
+        max_adults: 2.5 # "A team of five people - four reapers and a binder - could harvest two acres of crops a day."
+    spring_harvest_grains: # calculate final_yield
+      per_acre:
+        max_adults: 2.5 # "A team of five people - four reapers and a binder - could harvest two acres of crops a day."
+
+    # Church tithes - one sheaf in every ten - were collected from the field
+    # before peasants carted their crop to their barns and houses.
+    deliver_tithes: # reduce final_yield
+
+    # Crop            Seed (bu/acre)  Seed:Yield Ratio  Yield (bu/acre)
+    # Wheat           2.8             3.8               10.5
+    # Rye             2.8             4.9               13.7
+    # Spring barley   4.2             4.1               17.2
+    # Dredge          4.0             4.0               16.0 (dredge == barley and oats)
+    # Oats            4.8             2.7               12.8
+    # Peas            2.8             3.7               10.2
+    # Campbell et al, A Medieval Capital and its Grain Supply
+    # http://www.penultimateharn.com/history/medievalfarmingyear.html
+
+    # According to Titow's study of the Winchester data between 1209 and 1350,
+    # bad harvests (where the yield was 15 per cent or more below the average)
+    # occured about one year in eight and good harvests (where the yields were
+    # 15 per cent or more above the average) about one year in 20.
+    calculate_final_yield: # calculate final_yield less tithes
+
+    # harvest_straw:
+    #   <<: *temp_ratios
+    # plant_turnips:
+    #   <<: *temp_ratios
+
 
   september:
-    harvest_peas:
-      <<: *temp_ratios
-    breed_cattle:
-      <<: *temp_ratios
-    harvest_honey:
-      <<: *temp_ratios
-    plow_fields:
-      <<: *temp_ratios
-    plant_winter_wheat:
-      <<: *temp_ratios
-    plant_winter_rye:
-      <<: *temp_ratios
-    harvest_apples:
-      <<: *temp_ratios
-    harvest_blackberries:
-      <<: *temp_ratios
-    take_excess_stock_to_market:
-      <<: *temp_ratios
+    # harvest_peas:
+    #   <<: *temp_ratios
+    # breed_cattle:
+    #   <<: *temp_ratios
+    # harvest_honey:
+    #   <<: *temp_ratios
+    # harvest_apples:
+    #   <<: *temp_ratios
+    # harvest_blackberries:
+    #   <<: *temp_ratios
+
+    # "A worker could thresh about seven bushels of wheat in a day, or
+    # eight bushels of rye, 15 of barley or 18 bushels of oats."
+    thresh_winnow_seive_store_wheat_bushels:
+      per_unit:
+        max_adults: 1
+        units: 7
+    thresh_winnow_seive_store_rye_bushels:
+      per_unit:
+        max_adults: 1
+        units: 8
+    thresh_winnow_seive_store_barley_bushels:
+      per_unit:
+        max_adults: 1
+        units: 15
+    thresh_winnow_seive_store_oats_bushels:
+      per_unit:
+        max_adults: 1
+        units: 18
+
+    # "This could be done by throwing the grains on a winnowing sheet and
+    # letting the wind blow the lighter chaff and straw away, or by using a
+    # special winnowing fan."
+    # The chaff and straw was not wasted but carefully collected to use as animal fodder.
+    winnow_grains:
+
+    # "Finally the grain was sieved to remove the smaller weed seeds."
+    seive_grains:
+
+    # "It was then ready to be stored. It would last several years if kept dry
+    # and free from vermin, but this was not always easy."
+    # "Flour had a much shorter shelf-life, and milling the grain was done as
+    # and when necessary."
+    store_grains:
+
+    # "A substantial portion of the grain processing had to be completed by
+    # Michaelmas (September 29), which marked the start of the new financial year
+    # and was the day for settling debts, rents and dues."
+    pay_taxes:
+
+    # take_excess_stock_to_market:
+    #   <<: *temp_ratios
 
   october:
-    plant_winter_barley:
+    fallow_plow_fields: # improve bonus_yield
       <<: *temp_ratios
-    plant_winter_oats:
+
+    # "Wheat was sown at about two bushels per acre. I have been unable to find
+    # a reliable reference indicating how much rye was sown, so I have assumed
+    # it was the same as wheat."
+    winter_plant_wheat:
+      per_acre:
+        max_adults: 1 # ???
+        seed: 2 # bushels
+    winter_plant_rye:
+      per_acre:
+        max_adults: 1 # ???
+        seed: 2 # bushels
+
+    winter_harrow: # improve bonus_yield
       <<: *temp_ratios
-    harvest_grapes:
-      <<: *temp_ratios
-    make_wine:
-      <<: *temp_ratios
-    make_verjuice:
-      <<: *temp_ratios
-    breed_sheep:
-      <<: *temp_ratios
-    fatten_pigs:
-      <<: *temp_ratios
+
+    # harvest_grapes:
+    #   <<: *temp_ratios
+    # make_wine:
+    #   <<: *temp_ratios
+    # make_verjuice:
+    #   <<: *temp_ratios
+    # breed_sheep:
+    #   <<: *temp_ratios
+
+    # "By mid-September beechnuts and acorns were ripening and falling,
+    # and swineherds drove their charges into the woods to forage for them,
+    # a process known as pannaging."
+    # "Pannage rights were generally paid for by a small cash fee on top of a
+    # peasant's normal dues, and provided a valuable means of fattening swine up
+    # for slaughter. Pannaging generally lasted for six weeks, ending
+    # in mid-November. "
+    # fatten_swine:
+    #   <<: *temp_ratios
+
+    # "Whatever wild fruits and nuts were available were also collected
+    # for human consumption."
+    # gather_wild_fruits_and_nuts:
+    #   <<: *temp_ratios
+
+    # "Wheat stubble, which had been left standing in the fields, was gathered
+    # in to mix with hay as winter fodder."
+    # gather_wheat_stubble:
+    #   <<: *temp_ratios
 
   november:
-    fatten_pigs:
-      <<: *temp_ratios
-    harvest_firewood:
-      <<: *temp_ratios
-    process_grains:
-      <<: *temp_ratios # threshing and winnowing
+    # fatten_swine:
+    #   <<: *temp_ratios
+
+    # "In general only pigs, which lived largely on scraps and by scavenging,
+    # and beasts at the end of their working lives were candidates for slaughter
+    # on the manor"
+    # slaughter_swine:
+    #   <<: *temp_ratios
+    # slaughter_old_livestock:
+    #   <<: *temp_ratios
+
+    # preserve_meats:
+    #   <<: *temp_ratios
+    # preserve_skins:
+    #   <<: *temp_ratios
+
+    # "Firewood was collected from the woods; peasants were generally forbidden
+    # from taking anything but dead wood for their own personal use, and the
+    # amount they were allowed to take was often limited by local custom."
+    # harvest_firewood:
+    #   <<: *temp_ratios
+
+    # "Threshing and winnowing continued whenever the weather was too wet
+    # to do outside work."
+    thresh_winnow_seive_store_wheat_bushels:
+      per_unit:
+        max_adults: 1
+        units: 7
+    thresh_winnow_seive_store_rye_bushels:
+      per_unit:
+        max_adults: 1
+        units: 8
+    thresh_winnow_seive_store_barley_bushels:
+      per_unit:
+        max_adults: 1
+        units: 15
+    thresh_winnow_seive_store_oats_bushels:
+      per_unit:
+        max_adults: 1
+        units: 18
+    winnow_grains:
+    seive_grains:
+    store_grains:
+
 
   december:
-    slaughter_hogs:
-      <<: *temp_ratios
-    shovel_manure:
-      <<: *temp_ratios
-    process_grains:
-      <<: *temp_ratios # threshing and winnowing
+    # shovel_manure:
+    #   <<: *temp_ratios
 
+    # "Threshing and winnowing continued whenever the weather was too wet
+    # to do outside work."
+    thresh_winnow_seive_store_wheat_bushels:
+      per_unit:
+        max_adults: 1
+        units: 7
+    thresh_winnow_seive_store_rye_bushels:
+      per_unit:
+        max_adults: 1
+        units: 8
+    thresh_winnow_seive_store_barley_bushels:
+      per_unit:
+        max_adults: 1
+        units: 15
+    thresh_winnow_seive_store_oats_bushels:
+      per_unit:
+        max_adults: 1
+        units: 18
+
+    # "Cold and rain largely confined peasants indoors, where they performed
+    # whatever tasks they could to while away the hours and perhaps earn a
+    # little cash: women spun, men performed handicrafts."
+    # process_wool:
+    #   <<: *temp_ratios
+    # handicrafts:
+    #   <<: *temp_ratios

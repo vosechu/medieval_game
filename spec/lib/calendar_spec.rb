@@ -26,8 +26,10 @@ describe Calendar do
 
       activities = described_class.months_activities
       expect(activities).to have_key("work_groups")
+      expect(activities["work_groups"]).to include('spring_add_lime_chalk_and_manure')
+
       expect(activities).to have_key("festivals")
-      expect(activities["work_groups"]).to include('prune_grapes')
+      expect(activities["festivals"][14]["name"]).to include('Fertility')
     end
   end
 end

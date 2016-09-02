@@ -1,13 +1,219 @@
+# References:
+# http://www.medieval-life-and-times.info/medieval-religion/medieval-religious-festivals.htm
+# http://www.medieval-life.net/festivals.htm
+
+# Other important feasts:
+  # Sunday
+  # Childbed / Baptism
+  # Weddings
+  # not Birthdays
+  # Death
+  # Adventus (Monarch coming to town)
+
+calendar_to_use: "default"
+
+weekly:
+  sunday:
+    name: Day of rest
+
 default:
   january:
+    1:
+      name: It's shitty out and we need something to do
+      description: words
+    2:
+      name: It's shitty out and we need something to do
+      description: words
+    3:
+      name: It's shitty out and we need something to do
+      description: words
+    4:
+      name: It's shitty out and we need something to do
+      description: words
+    5:
+      name: It's shitty out and we need something to do
+      description: words
+    6:
+      name: It's shitty out and we need something to do
+      description: words
   february:
+    14:
+      name: Festival of Fertility
+      description: words
   march:
+    25:
+      name: New Year's Week
+      description: words
+    26:
+      name: New Year's Week
+      description: words
+    27:
+      name: New Year's Week
+      description: words
+    28:
+      name: New Year's Week
+      description: words
+    29:
+      name: New Year's Week
+      description: words
+    30:
+      name: New Year's Week
+      description: words
+    31:
+      name: New Year's Week
+      description: words
   april:
+    1:
+      name: Hangover day
+      description: words
+  may:
+    1:
+      name: First day of Summer
+      description: words
+  june:
+    24:
+      name: Midsummer Eve
+      description: words
+    25:
+      name: Midsummer
+      description: words
+  july:
+    # "St. Swithin's Day falls on 15th July. Legend says that during the bones
+    # of St Swithin were moved and after the ceremony it began to rain and
+    # continued to do so for forty days."
+    15:
+      name: Just two more weeks of starvation
+      description: words
+  august:
+    # "Lammas Day was celebrated on August 2nd. The 'loaf-mass' day, the
+    # festival of the first wheat harvest of the year. Houses were sometimes
+    # decorated with garlands and there were candle lit processions."
+    # ROLE: Festival of first harvest
+    2:
+      name: First harvest festival
+      description: words
+    10:
+      name: Tears of St. Blah Blah
+      description: Perseide meteor shower
+  september:
+    # ROLE: Start of the new financial year and was the day for settling debts,
+    # rents and dues. Also election of new Reeve, if this was controlled by the villagers
+    29:
+      name: End of Harvest Festival / Autumn Equinox
+      description: words
+  october:
+    31:
+      name: Summer's end
+      description: words
+  november:
+    1:
+      name: Summer's end
+      description: words
+    11:
+      name: Planting Festival
+      description: The end of the winter planting... words
+  december:
+    24:
+      name: It's shitty out and we need something to do
+      description: words
+    25:
+      name: It's shitty out and we need something to do
+      description: words
+    26:
+      name: It's shitty out and we need something to do
+      description: words
+    27:
+      name: It's shitty out and we need something to do
+      description: words
+    28:
+      name: It's shitty out and we need something to do
+      description: words
+    29:
+      name: It's shitty out and we need something to do
+      description: words
+    30:
+      name: It's shitty out and we need something to do
+      description: words
+    31:
+      name: It's shitty out and we need something to do
+      description: words
+
+anglo:
+  january:
+    # "Medieval society celebrated the grandest feast during the dreariest time
+    # of year. The two-week period from Christmas Eve to Twelfth Day (January 6)
+    # transformed into the longest vacation for workers. The Lord of the manor
+    # or castle often gave bonuses of food, clothing, drink and firewood to
+    # servants. Houses were decked with holly and ivy, and giant Yule logs were
+    # brought in and burned throughout the two-week celebration. New Year's took
+    # place during this time and added to the festivities, and "First Gifts"
+    # were often exchanged on this day."
+    # ROLE: Long celebration to stave off boredom, reward workers, recharge
+    6:
+      Twelfth day
+  february:
+    2:
+      Mary’s Candlemas
+    # ROLE: Celebration of love and fertility
+    14:
+      St. Valentine's Day
+  march:
+    # Good friday
+    # Easter monday
+    17:
+      St. Patrick's Day
+    # ROLE: Beginning of the harvest, new year week
+    25:
+      Lady Day (New Year)
+  april:
+    # ROLE: End of new year week
+    1:
+      April Fool's day # Not sure I believe this
   may:
   june:
+    24:
+      St John's Day
+    29:
+      Peter and Paul the apostles' day
   july:
+    # "St. Swithin's Day falls on 15th July. Legend says that during the bones
+    # of St Swithin were moved and after the ceremony it began to rain and
+    # continued to do so for forty days."
+    15:
+      St. Swithin's Day
   august:
+    # "Lammas Day was celebrated on August 2nd. The ' loaf-mass ' day, the
+    # festival of the first wheat harvest of the year. Houses were sometimes
+    # decorated with garlands and there were candle lit processions."
+    # ROLE: Festival of first harvest
+    2:
+      Lammas Day
+    10:
+      Lawrence the martyr
+    15:
+      Mary’s Ascension
   september:
+    8:
+      Mary’s Birth
+    # ROLE: Start of the new financial year and was the day for settling debts,
+    # rents and dues. Also election of new Reeve, if this was controlled by the villagers
+    # "29th September was when Michaelmas celebrated the life of St Michael and
+    # the traditional food on Michaelmas was goose or chicken"
+    29:
+      Michaelmas
   october:
+    # "Revels and bonfires and people acted as 'King Crispin'. "
+    25:
+      St Crispin's Day
   november:
+    11:
+      Martinmas
   december:
+    8:
+      Mary’s Conception
+    24:
+      Christmas Eve
+    25:
+      Christmas
+    26:
+      Stephen the martyr

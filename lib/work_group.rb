@@ -1,10 +1,6 @@
-require 'celluloid/current'
-
 class WorkGroup
-  include Celluloid::Internals::Logger
-
-  attr_reader :name, :completeness
-  attr_accessor :children, :adults
+  attr_reader :name
+  attr_accessor :children, :adults, :completeness
 
   def initialize(name:, max_adults: 0, max_children: 0, person_days:)
     @name         = name
@@ -72,5 +68,4 @@ class WorkGroup
   private
 
   attr_reader :needs, :max_adults, :max_children, :person_days, :type
-  attr_writer :completeness
 end

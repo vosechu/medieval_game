@@ -3,7 +3,7 @@ require 'medieval_game'
 
 describe MedievalGame do
   after :each do
-    Calendar.date = Date.new(800, 1, 1, Date::GREGORIAN)
+    Calendar.date = DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
   end
 
   describe 'timekeeping' do

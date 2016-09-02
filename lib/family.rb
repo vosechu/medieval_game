@@ -4,8 +4,6 @@ require 'stockpile'
 # 266-381 days worked per year per family
 # 1.13-3.4 d. per day.
 class Family
-  include Celluloid::Internals::Logger
-
   attr_reader :stockpile, :fields
 
   def initialize(head:, next_in_line:, children:)

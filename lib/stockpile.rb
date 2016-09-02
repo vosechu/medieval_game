@@ -1,8 +1,4 @@
-require 'celluloid/current'
-
 class Stockpile
-  include Celluloid::Internals::Logger
-
   def initialize
   end
 

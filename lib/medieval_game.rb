@@ -1,18 +1,12 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 
-require 'celluloid/current'
-
 require 'calendar'
 require 'citizen'
 require 'village'
 require 'family'
 
 class MedievalGame
-  include Celluloid
-  include Celluloid::Notifications
-  include Celluloid::Internals::Logger
-
   attr_accessor :villages
 
   def initialize
@@ -70,6 +64,7 @@ if $PROGRAM_NAME == __FILE__
     end
     results.report("one year:") do
       number_of_ticks.times do
+        print '.'
         game.tick
       end
     end

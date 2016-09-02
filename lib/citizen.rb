@@ -1,12 +1,8 @@
-require 'celluloid/current'
-
 require 'field'
 require 'stockpile'
 require 'calendar'
 
 class Citizen
-  include Celluloid::Internals::Logger
-
   attr_accessor :current_task
   # attr_accessor :health, :wealth, :satisfaction, :age, :gender
   # attr_accessor :highest_rank, :titles

@@ -8,8 +8,6 @@ require 'stockpile'
 
 class Village < Site
   include Celluloid
-  include Celluloid::Notifications
-  include Celluloid::Internals::Logger
 
   attr_accessor :shire
   attr_accessor :comm_range

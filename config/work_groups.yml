@@ -3,10 +3,50 @@ temp_ratios: &temp_ratios
   # fixed_per_day:
   #   max_adults: 2
   #   person_days: 20
-  # per_acre_per_day:
-  #   max_adults: 10
-  #   max_children: 10
-  # per_unit: {}
+  # acres_processed:
+  #   per_adult: .25
+  #   min_adults: 5
+  #
+  # # Calculation: acres / days_for_one_acre / people = ratio
+  # # Calculation: acres / 1                 / people = ratio
+  # # Calculation: 2     / 1                 / 5      = .4
+  # # Calculation: 20    / 1                 / 50     = .4
+  # # Calculation: 20    / 1                          = .4 * 50
+  # # Calculation: 20                                 = .4 * 50 * 1
+  # # Calculation: 20                                 = .4 * 50 * 1
+  # # Calculation: 20    / 2                          = .4 * 50 * 1 / 2
+  # acres_per_day:
+  #   # Example: A 20 acre plot
+  #   # Broadcasting seeds   (1 person, 0.2 days == 1.0 acres)
+  #   per_adult: 5.0
+  #   # Plowing fields w/ ox (1 person, 1.0 days == 1.0 acres)
+  #   per_adult: 1.0
+  #   # Harvesting hay       (1 person, 1.0 days == 1.0 acres)
+  #   per_adult: 1.0
+  #   # Harvesting grains  # (1 person,  50.0 days == 20.0 acres)
+  #   per_adult: 0.4       # (5 people,   4.0 days ==  8.0 acres)
+  #                        # (~12 people, 4.0 days == 20.0 acres)
+
+
+  #     per_adult:  .25 #  5 stout people over  4 days (1 weeks)
+  #     per_adult:  .50 # 10 stout people over  4 days (1 weeks)
+  #     per_adult:  .75 # 15 stout people over  4 days (1 weeks)
+  #     per_adult: 1.00 # 20 stout people over  4 days (1 weeks)
+  #                     # 10 stout people over  8 days (2 weeks)
+  #                     #  5 stout people over 16 days (4 weeks)
+  #     per_adult: 1.25 # 25 stout people over  4 days (1 weeks)
+  #     per_adult: 1.50 # 30 stout people over  4 days (1 weeks)
+  #                     # 15 stout people over  8 days (2 weeks)
+  #     per_adult: 1.75 # 35 stout people over  4 days (1 weeks)
+  #     per_adult: 2.00 # 40 stout people over  4 days (1 weeks)
+  #                     # 20 stout people over  8 days (2 weeks)
+  #                     # 10 stout people over 16 days (4 weeks)
+  #     per_adult: 2.50 # 50 stout people over  4 days (1 weeks)
+  #                     # 25 stout people over  8 days (2 weeks)
+  #
+  # Example: 300 units of grain would take 1 adult ~42 days
+  # units_processed_per_day:
+  #   per_adult: 7
   # fixed_percentage_time:
   #   max_adults: 100 # percentage of population
   #   person_days: 27 * population count # number of days spent
@@ -62,6 +102,11 @@ default:
   # December: And at Chritemasse I drynke redde wyne
   # -- anonymous (Raymond Oliver, Poems without names: the English Lyric 1200-1500).
 
+  # Simplifying assumptions for math. Denoted with [1]
+  # 800-1200 acres plantable land the village (extra 15-25% for lord/common, 25% forest/common)
+  # 50 families in the village, 2 parents, 4 children
+  # 20 acres per family
+
   january:
     # cut_wood:
     #   <<: *temp_ratios
@@ -70,7 +115,9 @@ default:
 
   february:
     spring_add_lime_chalk_and_manure: # improve bonus_fertility
-      <<: *temp_ratios
+      per_acre_per_day:
+        max_adults: .25 # 5 stout people over 4 days
+
 
     # prune_grapes:
     #   <<: *temp_ratios
@@ -251,21 +298,17 @@ default:
     # "A worker could thresh about seven bushels of wheat in a day, or
     # eight bushels of rye, 15 of barley or 18 bushels of oats."
     thresh_winnow_seive_store_wheat_bushels:
-      per_unit:
-        max_adults: 1
-        units: 7
+      units_processed:
+        per_adult: 7 # bushels
     thresh_winnow_seive_store_rye_bushels:
-      per_unit:
-        max_adults: 1
-        units: 8
+      units_processed:
+        per_adult: 8 # bushels
     thresh_winnow_seive_store_barley_bushels:
-      per_unit:
-        max_adults: 1
-        units: 15
+      units_processed:
+        per_adult: 15 # bushels
     thresh_winnow_seive_store_oats_bushels:
-      per_unit:
-        max_adults: 1
-        units: 18
+      units_processed:
+        per_adult: 18 # bushels
 
     # "This could be done by throwing the grains on a winnowing sheet and
     # letting the wind blow the lighter chaff and straw away, or by using a

@@ -19,8 +19,8 @@ class Calendar
 
     def months_activities
       {
-        "festivals"   => festivals[month_name],
-        "work_groups" => work_groups[month_name]
+        "festivals"   => festivals[month_name] || {},
+        "work_groups" => work_groups[month_name] || {}
       }
     end
 

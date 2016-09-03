@@ -8,7 +8,7 @@ describe MedievalGame do
 
   it 'runs one tick without exploding' do
     number_of_villages = 1
-    number_of_villagers = 10
+    number_of_families = 50
     number_of_ticks = 52.weeks / Calendar::TICK_LENGTH
 
     game = MedievalGame.new
@@ -16,8 +16,8 @@ describe MedievalGame do
       game.villages << Village.new(map: "", coordinates: "")
     end
     game.villages.each do |village|
-      (number_of_villagers/6).times do
-        village.families << Family.new(
+      (number_of_families).times do
+        family = Family.new(
           head: Citizen.new,
           next_in_line: Citizen.new,
           children: [
@@ -26,6 +26,12 @@ describe MedievalGame do
             Citizen.new(child: true),
             Citizen.new(child: true)]
         )
+        family.fields = [
+          Field.new(acres: 7),
+          Field.new(acres: 7),
+          Field.new(acres: 7),
+        ]
+        village.families << family
       end
     end
     number_of_ticks.times do

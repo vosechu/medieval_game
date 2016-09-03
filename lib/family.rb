@@ -4,7 +4,8 @@ require 'stockpile'
 # 266-381 days worked per year per family
 # 1.13-3.4 d. per day.
 class Family
-  attr_reader :stockpile, :fields
+  attr_reader :stockpile
+  attr_accessor :fields
 
   def initialize(head:, next_in_line:, children:)
     @name = ""
@@ -14,11 +15,7 @@ class Family
     @children = children || []
 
     @stockpile    = Stockpile.new
-    @fields       = [
-      Field.new(acres: 180),
-      Field.new(acres: 180),
-      Field.new(acres: 180),
-    ]
+    @fields       = []
   end
 
   attr_reader :children

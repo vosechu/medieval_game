@@ -1,55 +1,69 @@
+# This file describes the various kinds of work that take place in a
+# village throughout the year, as well as what types of workers are
+# needed to fulfill those tasks.
+
+# Tasks that have a variable amount of work that scales by acres
+#
+# Calculation: acres / days_for_one_acre / people = `per_adult`
+# Calculation: person_days = acres / `per_adult`
+# Calculation: max_adults  = person_days
+# Calculation: min_adults  = <Integer> # gathered from research
+#
+# Example: Given a 20 acre plot...
+# acres_per_day:
+#   # Broadcasting seeds   5 acres  / 1 day / 1 person = 5.0 ratio
+#   per_adult: 5.0       # 20 acres / 5.0 ratio        = 4  person_days, min 1 person
+#   min_adults: 1
+#
+#   # Plowing fields w/ ox 2 acres  / 1 day / 2 people = 1.0 ratio
+#   per_adult: 1.0       # 20 acres / 1.0 ratio        = 20 person_days, min 2 people
+#   min_adults: 2
+#
+#   # Harvesting hay       3 acres  / 1 day / 3 person = 1.0 ratio
+#   per_adult: 1.0       # 20 acres / 1.0 ratio        = 20 person_days, min 3 people
+#   min_adults: 2
+#   min_children: 1
+#
+#   # Harvesting grains    2 acres  / 1 day / 5 people = 0.4 ratio
+#   per_adult: 0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
+#   min_adults: 5
+
+
+# Tasks that have a variable amount of work that scales by amount of goods
+#
+# Calculation: person_days = units / `per_adult`
+# Calculation: max_adults  = person_days
+# Calculation: min_adults  = <Integer> # gathered from research
+#
+# Example: Given 300 units of grain would take 1 adult ~42 days
+# units_processed_per_day:
+#   per_adult: 7
+
+
+# Tasks that have a fixed amount of work for a fixed number of days
+#
+# Calculation: max_adults  = person_days
+# Calculation: min_adults  = <Integer> # gathered from research
+#
+# Example: ???
+# fixed_per_day:
+#   max_adults: 2
+#   min_adults: 2
+#   person_days: 20
+
+
+# Tasks that require a percentage of the population for a number of days
+# Calculation: person_days = population * required_days
+# Calculation: max_adults  = population * percent_of_adults
+# Calculation: min_adults  = max_adults
+#
+# Example: ???
+# fixed_percentage_time:
+#   percent_of_adults: 100 # percentage of population
+#   required_days: 27      # number of days spent
+
 temp_ratios: &temp_ratios
   {}
-  # fixed_per_day:
-  #   max_adults: 2
-  #   person_days: 20
-  # acres_processed:
-  #   per_adult: .25
-  #   min_adults: 5
-  #
-  # # Calculation: acres / days_for_one_acre / people = ratio
-  # # Calculation: acres / 1                 / people = ratio
-  # # Calculation: 2     / 1                 / 5      = .4
-  # # Calculation: 20    / 1                 / 50     = .4
-  # # Calculation: 20    / 1                          = .4 * 50
-  # # Calculation: 20                                 = .4 * 50 * 1
-  # # Calculation: 20                                 = .4 * 50 * 1
-  # # Calculation: 20    / 2                          = .4 * 50 * 1 / 2
-  # acres_per_day:
-  #   # Example: A 20 acre plot
-  #   # Broadcasting seeds   (1 person, 0.2 days == 1.0 acres)
-  #   per_adult: 5.0
-  #   # Plowing fields w/ ox (1 person, 1.0 days == 1.0 acres)
-  #   per_adult: 1.0
-  #   # Harvesting hay       (1 person, 1.0 days == 1.0 acres)
-  #   per_adult: 1.0
-  #   # Harvesting grains  # (1 person,  50.0 days == 20.0 acres)
-  #   per_adult: 0.4       # (5 people,   4.0 days ==  8.0 acres)
-  #                        # (~12 people, 4.0 days == 20.0 acres)
-
-
-  #     per_adult:  .25 #  5 stout people over  4 days (1 weeks)
-  #     per_adult:  .50 # 10 stout people over  4 days (1 weeks)
-  #     per_adult:  .75 # 15 stout people over  4 days (1 weeks)
-  #     per_adult: 1.00 # 20 stout people over  4 days (1 weeks)
-  #                     # 10 stout people over  8 days (2 weeks)
-  #                     #  5 stout people over 16 days (4 weeks)
-  #     per_adult: 1.25 # 25 stout people over  4 days (1 weeks)
-  #     per_adult: 1.50 # 30 stout people over  4 days (1 weeks)
-  #                     # 15 stout people over  8 days (2 weeks)
-  #     per_adult: 1.75 # 35 stout people over  4 days (1 weeks)
-  #     per_adult: 2.00 # 40 stout people over  4 days (1 weeks)
-  #                     # 20 stout people over  8 days (2 weeks)
-  #                     # 10 stout people over 16 days (4 weeks)
-  #     per_adult: 2.50 # 50 stout people over  4 days (1 weeks)
-  #                     # 25 stout people over  8 days (2 weeks)
-  #
-  # Example: 300 units of grain would take 1 adult ~42 days
-  # units_processed_per_day:
-  #   per_adult: 7
-  # fixed_percentage_time:
-  #   max_adults: 100 # percentage of population
-  #   person_days: 27 * population count # number of days spent
 
 default:
   # January & February - work indoors repairing hunting nets, sharpening tools,

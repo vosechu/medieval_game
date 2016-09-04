@@ -155,8 +155,9 @@ default:
   march:
     spring_plow_fields: # improve bonus_yield
       acres_per_day:
-        max_adults: 1 # 0.79 - 1.85
-        # oxen: 8
+        per_adult:  1.0 # 0.79 - 1.85 [Weisbach]
+        min_adults: 2
+        # min_oxen: 8
 
     # calving:
     #   <<: *temp_ratios
@@ -171,14 +172,26 @@ default:
       #   days: 27
 
     spring_plant_oats: # improve percent_sown
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  5.0 # [1]
+        min_adults: 1
+        # seed: 2 # bushels
+
     spring_plant_barley: # improve percent_sown
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  5.0 # [1]
+        min_adults: 1
+        # seed: 2 # bushels
+
     spring_harrow: # improve bonus_yield
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  3.0 # [1]
+        min_adults: 1
 
     fallow_plow_fields: # improve bonus_yield
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  1.0
+        min_adults: 2
 
     # plant_onions_and_leeks:
     #   <<: *temp_ratios
@@ -220,7 +233,10 @@ default:
 
   june:
     fallow_plow_fields_deeply: # improve bonus_yield
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  0.5 # [1]
+        min_adults: 2
+
     fallow_spread_muck: # improve bonus_fertility
       <<: *temp_ratios
     # "Each acre could support two sheep; cattle required about two acres each."
@@ -254,8 +270,8 @@ default:
     # "July was the hungry month. Grain stores were at their lowest ebb,
     # awaiting replenishment from the forthcoming harvest, and peasants
     # in need eked out their diet by foraging and many no doubt by poaching. "
-    foraging_and_poaching:
-      <<: *temp_ratios
+    # foraging_and_poaching:
+    #   <<: *temp_ratios
 
     # harvest_flax:
     #   <<: *temp_ratios
@@ -271,34 +287,19 @@ default:
     # in upland areas where the growing season was short."
     # "A team of five people - four reapers and a binder - could harvest
     # two acres of crops a day."
-    winter_harvest_grains: # calculate final_yield
+    winter_harvest_grains: # calculate final_bushel_yield
       acres_per_day:
         per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
         min_adults: 5
-    spring_harvest_grains: # calculate final_yield
+
+    spring_harvest_grains: # calculate final_bushel_yield
       acres_per_day:
         per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
         min_adults: 5
 
     # Church tithes - one sheaf in every ten - were collected from the field
     # before peasants carted their crop to their barns and houses.
-    deliver_tithes: # reduce final_yield
-
-    # Crop            Seed (bu/acre)  Seed:Yield Ratio  Yield (bu/acre)
-    # Wheat           2.8             3.8               10.5
-    # Rye             2.8             4.9               13.7
-    # Spring barley   4.2             4.1               17.2
-    # Dredge          4.0             4.0               16.0 (dredge == barley and oats)
-    # Oats            4.8             2.7               12.8
-    # Peas            2.8             3.7               10.2
-    # Campbell et al, A Medieval Capital and its Grain Supply
-    # http://www.penultimateharn.com/history/medievalfarmingyear.html
-
-    # According to Titow's study of the Winchester data between 1209 and 1350,
-    # bad harvests (where the yield was 15 per cent or more below the average)
-    # occured about one year in eight and good harvests (where the yields were
-    # 15 per cent or more above the average) about one year in 20.
-    calculate_final_yield: # calculate final_yield less tithes
+    deliver_tithes: # reduce final_bushel_yield
 
     # harvest_straw:
     #   <<: *temp_ratios
@@ -318,51 +319,67 @@ default:
     # harvest_blackberries:
     #   <<: *temp_ratios
 
+    # # Threshing
     # "A worker could thresh about seven bushels of wheat in a day, or
     # eight bushels of rye, 15 of barley or 18 bushels of oats."
-    thresh_winnow_seive_store_wheat_bushels:
-      units_processed_per_day:
-        per_adult:  7 # bushels
-        min_adults: 1
-    thresh_winnow_seive_store_rye_bushels:
-      units_processed_per_day:
-        per_adult:  8 # bushels
-        min_adults: 1
-    thresh_winnow_seive_store_barley_bushels:
-      units_processed_per_day:
-        per_adult:  15 # bushels
-        min_adults: 1
-    thresh_winnow_seive_store_oats_bushels:
-      units_processed_per_day:
-        per_adult:  18 # bushels
-        min_adults: 1
-
+    # # Winnowing
     # "This could be done by throwing the grains on a winnowing sheet and
     # letting the wind blow the lighter chaff and straw away, or by using a
     # special winnowing fan."
     # The chaff and straw was not wasted but carefully collected to use as animal fodder.
-    winnow_grains:
-
+    # # Sieving
     # "Finally the grain was sieved to remove the smaller weed seeds."
-    seive_grains:
-
+    # # Storing
     # "It was then ready to be stored. It would last several years if kept dry
     # and free from vermin, but this was not always easy."
     # "Flour had a much shorter shelf-life, and milling the grain was done as
     # and when necessary."
-    store_grains:
+    thresh_winnow_seive_store_bushels_of_wheat: # calculate final_grain_yield
+      units_processed_per_day:
+        per_adult:  7 # bushels
+        min_adults: 1
+    thresh_winnow_seive_store_bushels_of_rye: # calculate final_grain_yield
+      units_processed_per_day:
+        per_adult:  8 # bushels
+        min_adults: 1
+    thresh_winnow_seive_store_bushels_of_barley: # calculate final_grain_yield
+      units_processed_per_day:
+        per_adult:  15 # bushels
+        min_adults: 1
+    thresh_winnow_seive_store_bushels_of_oats: # calculate final_grain_yield
+      units_processed_per_day:
+        per_adult:  18 # bushels
+        min_adults: 1
 
     # "A substantial portion of the grain processing had to be completed by
     # Michaelmas (September 29), which marked the start of the new financial year
     # and was the day for settling debts, rents and dues."
-    pay_taxes:
+    pay_taxes: # reduce final_grain_yield
+
+    # Crop            Seed (bu/acre)  Seed:Yield Ratio  Yield (bu/acre)
+    # Wheat           2.8             3.8               10.5
+    # Rye             2.8             4.9               13.7
+    # Spring barley   4.2             4.1               17.2
+    # Dredge          4.0             4.0               16.0 (dredge == barley and oats)
+    # Oats            4.8             2.7               12.8
+    # Peas            2.8             3.7               10.2
+    # Campbell et al, A Medieval Capital and its Grain Supply
+    # http://www.penultimateharn.com/history/medievalfarmingyear.html
+
+    # According to Titow's study of the Winchester data between 1209 and 1350,
+    # bad harvests (where the yield was 15 per cent or more below the average)
+    # occured about one year in eight and good harvests (where the yields were
+    # 15 per cent or more above the average) about one year in 20.
+    calculate_final_grain_yield: # calculate final_grain_yield less taxes
 
     # take_excess_stock_to_market:
     #   <<: *temp_ratios
 
   october:
     fallow_plow_fields: # improve bonus_yield
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  1.0
+        min_adults: 2
 
     # "Wheat was sown at about two bushels per acre. I have been unable to find
     # a reliable reference indicating how much rye was sown, so I have assumed
@@ -379,7 +396,9 @@ default:
         # seed: 2 # bushels
 
     winter_harrow: # improve bonus_yield
-      <<: *temp_ratios
+      acres_per_day:
+        per_adult:  3.0 # [1]
+        min_adults: 1
 
     # harvest_grapes:
     #   <<: *temp_ratios
@@ -435,26 +454,22 @@ default:
 
     # "Threshing and winnowing continued whenever the weather was too wet
     # to do outside work."
-    thresh_winnow_seive_store_wheat_bushels:
+    thresh_winnow_seive_store_bushels_of_wheat:
       units_processed_per_day:
         per_adult:  7 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_rye_bushels:
+    thresh_winnow_seive_store_bushels_of_rye:
       units_processed_per_day:
         per_adult:  8 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_barley_bushels:
+    thresh_winnow_seive_store_bushels_of_barley:
       units_processed_per_day:
         per_adult:  15 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_oats_bushels:
+    thresh_winnow_seive_store_bushels_of_oats:
       units_processed_per_day:
         per_adult:  18 # bushels
         min_adults: 1
-    winnow_grains:
-    seive_grains:
-    store_grains:
-
 
   december:
     # shovel_manure:
@@ -462,19 +477,19 @@ default:
 
     # "Threshing and winnowing continued whenever the weather was too wet
     # to do outside work."
-    thresh_winnow_seive_store_wheat_bushels:
+    thresh_winnow_seive_store_bushels_of_wheat:
       units_processed_per_day:
         per_adult:  7 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_rye_bushels:
+    thresh_winnow_seive_store_bushels_of_rye:
       units_processed_per_day:
         per_adult:  8 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_barley_bushels:
+    thresh_winnow_seive_store_bushels_of_barley:
       units_processed_per_day:
         per_adult:  15 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_oats_bushels:
+    thresh_winnow_seive_store_bushels_of_oats:
       units_processed_per_day:
         per_adult:  18 # bushels
         min_adults: 1

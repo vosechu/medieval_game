@@ -14,6 +14,7 @@ class Values
     :other_focused_vs_self_focused => 50,
     :wisdom_of_ages_vs_openness_of_youth => 50,
     :orderly_govt_vs_dynamic_govt => 50,
-    :lawful_vs_means_justify_the_ends => 50
+    :lawful_vs_means_justify_the_ends => 50,
+    :risk_taking_vs_risk_averse => 50
   }
 end

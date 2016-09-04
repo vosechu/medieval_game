@@ -129,7 +129,7 @@ default:
 
   february:
     spring_add_lime_chalk_and_manure: # improve bonus_fertility
-      per_acre_per_day:
+      acres_per_day:
         max_adults: .25 # 5 stout people over 4 days
 
 
@@ -154,7 +154,7 @@ default:
 
   march:
     spring_plow_fields: # improve bonus_yield
-      per_acre_per_day:
+      acres_per_day:
         max_adults: 1 # 0.79 - 1.85
         # oxen: 8
 
@@ -234,17 +234,22 @@ default:
     # shear_lambs: # late in june, 3-4y/o lambs produced decently sized fleeces
     #   <<: *temp_ratios
     # harvest_hay:
-    #   per_acre:
-    #     max_adults: 2 "Teams of men moved down the meadow in lines, each expected to mow about an acre a day" - Penultiharn
-    #     max_children: 1 "Women and children followed to turn the hay behind them to ensure it dried evenly."
+    #   acres_per_day:
+    #     per_adult:    1.0 # 20 acres / 1.0 ratio        = 20 person_days, min 3 people
+    #     min_adults:   2   # "Teams of men moved down the meadow in lines, each expected to mow about an acre a day" - Penultiharn
+    #     min_children: 1   # "Women and children followed to turn the hay behind them to ensure it dried evenly."
 
   july:
     spring_weed_crops: # improve bonus_yield
-      per_acre:
-        max_adults: 0.75
+      acres_per_day:
+        per_adult:    0.3333
+        min_adults:   1
+        min_children: 1
     winter_weed_crops: # improve bonus_yield
-      per_acre:
-        max_adults: 0.75
+      acres_per_day:
+        per_adult:    0.3333
+        min_adults:   1
+        min_children: 1
 
     # "July was the hungry month. Grain stores were at their lowest ebb,
     # awaiting replenishment from the forthcoming harvest, and peasants
@@ -264,12 +269,16 @@ default:
     # "In a pinch unripe or rain-dampened grain could be harvested and
     # placed in special corn-drying ovens, though these were more common
     # in upland areas where the growing season was short."
+    # "A team of five people - four reapers and a binder - could harvest
+    # two acres of crops a day."
     winter_harvest_grains: # calculate final_yield
-      per_acre:
-        max_adults: 2.5 # "A team of five people - four reapers and a binder - could harvest two acres of crops a day."
+      acres_per_day:
+        per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
+        min_adults: 5
     spring_harvest_grains: # calculate final_yield
-      per_acre:
-        max_adults: 2.5 # "A team of five people - four reapers and a binder - could harvest two acres of crops a day."
+      acres_per_day:
+        per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
+        min_adults: 5
 
     # Church tithes - one sheaf in every ten - were collected from the field
     # before peasants carted their crop to their barns and houses.
@@ -312,17 +321,21 @@ default:
     # "A worker could thresh about seven bushels of wheat in a day, or
     # eight bushels of rye, 15 of barley or 18 bushels of oats."
     thresh_winnow_seive_store_wheat_bushels:
-      units_processed:
-        per_adult: 7 # bushels
+      units_processed_per_day:
+        per_adult:  7 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_rye_bushels:
-      units_processed:
-        per_adult: 8 # bushels
+      units_processed_per_day:
+        per_adult:  8 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_barley_bushels:
-      units_processed:
-        per_adult: 15 # bushels
+      units_processed_per_day:
+        per_adult:  15 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_oats_bushels:
-      units_processed:
-        per_adult: 18 # bushels
+      units_processed_per_day:
+        per_adult:  18 # bushels
+        min_adults: 1
 
     # "This could be done by throwing the grains on a winnowing sheet and
     # letting the wind blow the lighter chaff and straw away, or by using a
@@ -355,13 +368,15 @@ default:
     # a reliable reference indicating how much rye was sown, so I have assumed
     # it was the same as wheat."
     winter_plant_wheat:
-      per_acre:
-        max_adults: 1 # ???
-        seed: 2 # bushels
+      acres_per_day:
+        per_adult:  5.0 # [1]
+        min_adults: 1
+        # seed: 2 # bushels
     winter_plant_rye:
-      per_acre:
-        max_adults: 1 # ???
-        seed: 2 # bushels
+      acres_per_day:
+        per_adult:  5.0 # [1]
+        min_adults: 1
+        # seed: 2 # bushels
 
     winter_harrow: # improve bonus_yield
       <<: *temp_ratios
@@ -421,21 +436,21 @@ default:
     # "Threshing and winnowing continued whenever the weather was too wet
     # to do outside work."
     thresh_winnow_seive_store_wheat_bushels:
-      per_unit:
-        max_adults: 1
-        units: 7
+      units_processed_per_day:
+        per_adult:  7 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_rye_bushels:
-      per_unit:
-        max_adults: 1
-        units: 8
+      units_processed_per_day:
+        per_adult:  8 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_barley_bushels:
-      per_unit:
-        max_adults: 1
-        units: 15
+      units_processed_per_day:
+        per_adult:  15 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_oats_bushels:
-      per_unit:
-        max_adults: 1
-        units: 18
+      units_processed_per_day:
+        per_adult:  18 # bushels
+        min_adults: 1
     winnow_grains:
     seive_grains:
     store_grains:
@@ -448,21 +463,21 @@ default:
     # "Threshing and winnowing continued whenever the weather was too wet
     # to do outside work."
     thresh_winnow_seive_store_wheat_bushels:
-      per_unit:
-        max_adults: 1
-        units: 7
+      units_processed_per_day:
+        per_adult:  7 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_rye_bushels:
-      per_unit:
-        max_adults: 1
-        units: 8
+      units_processed_per_day:
+        per_adult:  8 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_barley_bushels:
-      per_unit:
-        max_adults: 1
-        units: 15
+      units_processed_per_day:
+        per_adult:  15 # bushels
+        min_adults: 1
     thresh_winnow_seive_store_oats_bushels:
-      per_unit:
-        max_adults: 1
-        units: 18
+      units_processed_per_day:
+        per_adult:  18 # bushels
+        min_adults: 1
 
     # "Cold and rain largely confined peasants indoors, where they performed
     # whatever tasks they could to while away the hours and perhaps earn a

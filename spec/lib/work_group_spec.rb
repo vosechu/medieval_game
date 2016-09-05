@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'work_group'
+require 'actor_collection_examples'
 
 describe WorkGroup do
+  it_behaves_like 'actor_collection'
+
   subject {
     described_class.new(
       name: "test",

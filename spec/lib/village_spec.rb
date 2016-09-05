@@ -1,7 +1,10 @@
 require 'spec_helper'
 require 'village'
+require 'actor_collection_examples'
 
 describe Village do
+  it_behaves_like 'actor_collection'
+
   after :each do
     Calendar.date = DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
   end

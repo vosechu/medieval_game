@@ -62,6 +62,10 @@
 #   percent_of_adults: 100 # percentage of population
 #   required_days: 27      # number of days spent
 
+# Change this to alter which set of work_groups defined in this file to
+# load and use in the game.
+set_to_use: "default"
+
 temp_ratios: &temp_ratios
   {}
 

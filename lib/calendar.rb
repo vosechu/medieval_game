@@ -46,12 +46,15 @@ class Calendar
     def festivals
       @festivals ||= begin
         yaml = yaml_load("festivals")
-        yaml[yaml["calendar_to_use"]]
+        yaml[yaml["set_to_use"]]
       end
     end
 
     def work_groups
-      @work_groups ||= yaml_load("work_groups")["default"]
+      @work_groups ||= begin
+        yaml = yaml_load("work_groups")
+        yaml[yaml["set_to_use"]]
+      end
     end
 
     def yaml_load(file)

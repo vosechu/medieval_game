@@ -10,7 +10,9 @@
   # Death
   # Adventus (Monarch coming to town)
 
-calendar_to_use: "default"
+# Change this to alter which set of work_groups defined in this file to
+# load and use in the game.
+set_to_use: "default"
 
 weekly:
   sunday:

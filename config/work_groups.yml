@@ -67,7 +67,10 @@
 set_to_use: "default"
 
 temp_ratios: &temp_ratios
-  {}
+  fixed_per_day:
+    max_adults: 2
+    min_adults: 2
+    person_days: 20
 
 default:
   # January & February - work indoors repairing hunting nets, sharpening tools,
@@ -134,8 +137,8 @@ default:
   february:
     spring_add_lime_chalk_and_manure: # improve bonus_fertility
       acres_per_day:
-        max_adults: .25 # 5 stout people over 4 days
-
+        per_adult: 1.0
+        min_adults: 1
 
     # prune_grapes:
     #   <<: *temp_ratios
@@ -304,6 +307,7 @@ default:
     # Church tithes - one sheaf in every ten - were collected from the field
     # before peasants carted their crop to their barns and houses.
     deliver_tithes: # reduce final_bushel_yield
+      <<: *temp_ratios
 
     # harvest_straw:
     #   <<: *temp_ratios
@@ -359,6 +363,7 @@ default:
     # Michaelmas (September 29), which marked the start of the new financial year
     # and was the day for settling debts, rents and dues."
     pay_taxes: # reduce final_grain_yield
+      <<: *temp_ratios
 
     # Crop            Seed (bu/acre)  Seed:Yield Ratio  Yield (bu/acre)
     # Wheat           2.8             3.8               10.5
@@ -375,6 +380,7 @@ default:
     # occured about one year in eight and good harvests (where the yields were
     # 15 per cent or more above the average) about one year in 20.
     calculate_final_grain_yield: # calculate final_grain_yield less taxes
+      <<: *temp_ratios
 
     # take_excess_stock_to_market:
     #   <<: *temp_ratios

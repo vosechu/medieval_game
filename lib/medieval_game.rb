@@ -62,10 +62,11 @@ if $PROGRAM_NAME == __FILE__
         end
       end
     end
-    results.report("one year:") do
-      number_of_ticks.times do
-        print '.'
-        game.tick
+    1.upto(52) do |i|
+      results.report("week #{i}:") do
+        (1.week / Calendar::TICK_LENGTH).times do
+          game.tick
+        end
       end
     end
   end

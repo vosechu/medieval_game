@@ -6,8 +6,10 @@ require 'work_order'
 require 'field'
 require 'stockpile'
 
+# Interface: ActorCollection
 class Village < Site
   include Celluloid
+  include Celluloid::Internals::Logger
 
   attr_accessor :shire
   attr_accessor :comm_range
@@ -97,47 +99,37 @@ class Village < Site
     )
   end
 
-  private
-
-  def comm_range
-    super + comm_modifier
-  end
-
-  def reset_work_groups
-    # info "NOT FINISHED! #{self.work_groups.reject(&:finished?)}"
-    self.work_groups = []
-  end
-
-  def generate_work_groups(fields:)
-    Calendar.months_activities["work_groups"].map do |name, needs|
-      type = needs.keys.first
-      values = needs.values.first
-
-      case type
-      when "fixed_per_day"
-        advertise_work_group(
-          name: name,
-          max_adults: values["max_adults"],
-          max_children: values["max_children"],
-          person_days: values["person_days"]
-        )
-      when "per_acre_per_day"
-        fields.map do |field|
-          advertise_work_group(
-            name: "#{name} #{field.object_id}",
-            max_adults: ((values["max_adults"] || 0) * field.acreage).ceil,
-            max_children: ((values["max_children"] || 0) * field.acreage).ceil,
-            person_days: ((values["max_adults"] || 0) + (values["max_children"] || 0)) * field.acreage
-          )
-        end
-      end
+  def work
+    work_orders.reject(&:finished?).each do |work_order|
+      work_order.progress
     end
 
     return nil
   end
 
-  def assign_citizens_to_work_groups
-    available_work_groups = work_groups.reject(&:finished?).reject(&:full?)
+  def advertise
+    work_orders = owners.map(&:advertise)
+
+    return nil
+  end
+
+  private
+
+  def owners
+    families
+  end
+
+  def comm_range
+    super + comm_modifier
+  end
+
+  def reset_work_orders
+    # info "NOT FINISHED! #{self.work_orders.reject(&:finished?)}"
+    self.work_orders = []
+  end
+
+  def assign_citizens_to_work_orders
+    available_work_orders = work_orders.reject(&:finished?).reject(&:full?)
 
     citizens.reject(&:busy?).each do |citizen|
       wo = available_work_orders.sample
@@ -146,14 +138,6 @@ class Village < Site
         wo.sign_up(child: citizen.child?)
         citizen.sign_up
       end
-    end
-
-    return nil
-  end
-
-  def get_shit_done
-    work_groups.reject(&:finished?).each do |work_group|
-      work_group.progress
     end
 
     return nil

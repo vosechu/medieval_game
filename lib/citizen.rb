@@ -2,6 +2,8 @@ require 'field'
 require 'stockpile'
 require 'calendar'
 
+# Interface: Actor
+# Interface: Owner
 class Citizen
   attr_accessor :current_task
   # attr_accessor :health, :wealth, :satisfaction, :age, :gender
@@ -45,6 +47,10 @@ class Citizen
 
   def child?
     !!@child
+  end
+
+  def work
+    # Do nothing
   end
 
   def sign_up

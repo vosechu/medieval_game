@@ -1,13 +1,19 @@
 RSpec.shared_examples 'actor_collection' do
   describe '#work' do
-    xit 'should be implemented' do
+    it 'should be implemented' do
       expect { subject.work }.to_not raise_error
     end
   end
 
-  describe '#advertise' do
+  describe '#join' do
     xit 'should be implemented' do
-      expect { subject.advertise }.to_not raise_error
+      expect { subject.join }.to_not raise_error
+    end
+  end
+
+  describe '#leave' do
+    xit 'should be implemented' do
+      expect { subject.leave }.to_not raise_error
     end
   end
 

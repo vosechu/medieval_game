@@ -10,7 +10,7 @@ describe Calendar do
     it 'finds february\'s activities' do
       described_class.date = DateTime.new(800, 2, 1, 0, 0, 0, 0, Date::GREGORIAN)
 
-      activities = described_class.months_work_groups
+      activities = described_class.months_work_orders
       expect(activities).to include('spring_add_lime_chalk_and_manure')
 
       activities = described_class.months_festivals

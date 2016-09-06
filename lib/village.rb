@@ -2,7 +2,7 @@ require 'celluloid/current'
 
 require 'citizen'
 require 'site'
-require 'work_group'
+require 'work_order'
 require 'field'
 require 'stockpile'
 
@@ -11,7 +11,7 @@ class Village < Site
 
   attr_accessor :shire
   attr_accessor :comm_range
-  attr_accessor :work_groups, :families
+  attr_accessor :work_orders, :families
   attr_reader :citizens
 
   def initialize(map: nil, coordinates: nil)
@@ -34,7 +34,7 @@ class Village < Site
     # @yearly_tax_to_lord = :unknown # percent of goods/wealth sent to lord
     # @yearly_tithe_to_church = :unknown # percent of goods/wealth sent to church
 
-    @work_groups = []
+    @work_orders = []
 
     @comm_modifier = 0
   end
@@ -44,13 +44,13 @@ class Village < Site
       # FIXME: This may be deleting tasks that still need to be done
       # TODO: Implement max amount of time to try a thing. Like, we
       # could only plant so much this year, so that sucks.
-      reset_work_groups
+      reset_work_orders
     end
 
     if Calendar.date.hour > 5 && Calendar.date.hour < 22
-      generate_work_groups(fields: fields) if work_groups.empty?
-      assign_citizens_to_work_groups
-      get_shit_done
+      advertise if work_orders.empty?
+      assign_citizens_to_work_orders
+      work
     else
       quitting_time
     end
@@ -88,8 +88,8 @@ class Village < Site
   #   }
   # end
 
-  def advertise_work_group(name:, max_adults:, max_children:, person_days:)
-    self.work_groups << WorkGroup.new(
+  def advertise_work_order(name:, max_adults:, max_children:, person_days:)
+    self.work_orders << WorkOrder.new(
       name: name,
       max_adults: max_adults,
       max_children: max_children,
@@ -140,10 +140,10 @@ class Village < Site
     available_work_groups = work_groups.reject(&:finished?).reject(&:full?)
 
     citizens.reject(&:busy?).each do |citizen|
-      wg = available_work_groups.sample
+      wo = available_work_orders.sample
 
-      unless wg.nil?
-        wg.sign_up(child: citizen.child?)
+      unless wo.nil?
+        wo.sign_up(child: citizen.child?)
         citizen.sign_up
       end
     end
@@ -160,8 +160,8 @@ class Village < Site
   end
 
   def quitting_time
-    work_groups.each do |work_group|
-      work_group.empty
+    work_orders.each do |work_order|
+      work_order.empty
     end
     citizens.select(&:busy?).each do |citizen|
       citizen.leave

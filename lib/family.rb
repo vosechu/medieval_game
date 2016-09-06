@@ -1,7 +1,7 @@
 require 'contracts'
 require 'field'
 require 'stockpile'
-require 'work_group'
+require 'work_order'
 require 'citizen'
 
 # 266-381 days worked per year per family

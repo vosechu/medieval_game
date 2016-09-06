@@ -10,7 +10,7 @@
   # Death
   # Adventus (Monarch coming to town)
 
-# Change this to alter which set of work_groups defined in this file to
+# Change this to alter which set of festivals defined in this file to
 # load and use in the game.
 set_to_use: "default"
 

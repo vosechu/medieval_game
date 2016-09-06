@@ -1,27 +1,41 @@
 require 'yaml'
 require 'active_support/core_ext/numeric/time'
+require 'contracts'
 
 class Calendar
+  include Contracts::Core
+  include Contracts::Builtin
+
   TICK_LENGTH = 1.hour
 
   class << self
+    Contract nil => DateTime
     def date
       @date ||= DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
     end
+
+    Contract DateTime => nil
     def date=(date)
       @date = date
+
+      return nil
     end
+
+    Contract nil => nil
     def tick
       Calendar.date += Calendar::TICK_LENGTH
 
       return nil
     end
 
-    def months_activities
-      {
-        "festivals"   => festivals[month_name] || {},
-        "work_groups" => work_groups[month_name] || {}
-      }
+    Contract nil => HashOf[Num => Hash["name" => String, "description" => String]]
+    def months_festivals
+      months_activities["festivals"]
+    end
+
+    Contract nil => HashOf[String => HashOf[String => Hash]]
+    def months_work_groups
+      months_activities["work_groups"]
     end
 
     private
@@ -30,17 +44,11 @@ class Calendar
       date.strftime("%B").downcase
     end
 
-    def season
-      case date.month
-      when 1..3
-        'winter'
-      when 4..6
-        'spring'
-      when 7..9
-        'summer'
-      when 10..12
-        'fall'
-      end
+    def months_activities
+      {
+        "festivals"   => festivals[month_name] || {},
+        "work_groups" => work_groups[month_name] || {}
+      }
     end
 
     def festivals

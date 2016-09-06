@@ -57,6 +57,7 @@ Run automatically and notify: `bundle exec guard`
 
 > This will communicate with you via the system notifications in OS X. This will let you stay in your editor full-time.
 
-Run a "full" simulation: `bundle exec ruby lib/medieval_game.rb`. 
+Run a "full" simulation: `time bundle exec ruby lib/medieval_game.rb`.
+Run a "full" simulation (w/o contract analysis): `time NO_CONTRACTS=true bundle exec ruby lib/medieval_game.rb`.
 
-> The full simulation is useful for playing around and to benchmark performance. 
+> The full simulation is useful for playing around and to benchmark performance.

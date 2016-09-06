@@ -2,6 +2,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'support'))
 
 require 'rspec'
+require 'contracts'
 
 RSpec.configure do |rspec|
   rspec.after :each do
@@ -12,5 +13,14 @@ RSpec.configure do |rspec|
     # end
     require 'calendar'
     expect(Calendar.date).to eq(DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN))
+  end
+
+  # Make contracts accept all RSpec doubles
+  Contract.override_validator(:class) do |contract|
+    lambda do |arg|
+      arg.is_a?(RSpec::Mocks::Double) ||
+        arg.is_a?(RSpec::Mocks::InstanceVerifyingDouble) ||
+        arg.is_a?(contract)
+    end
   end
 end

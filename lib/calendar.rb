@@ -65,8 +65,8 @@ class Calendar
       end
     end
 
-    def yaml_load(file)
-      File.open("config/#{file}.yml") { |file| YAML.load(file) }
+    def yaml_load(yaml_file)
+      File.open("config/#{yaml_file}.yml") { |file| YAML.load(file) }
     end
   end
 end

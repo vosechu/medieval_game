@@ -53,8 +53,8 @@ class Family
   end
 
   Contract nil => ArrayOf[WorkOrder]
-  def advertise
-    wg = []
+  def work_needed
+    work_orders = []
 
     Calendar.months_work_orders.each do |name, needs|
       type = needs.keys.first
@@ -64,7 +64,7 @@ class Family
 
       case type
       when "fixed_per_day"
-        wg << WorkOrder.new(
+        work_orders << WorkOrder.new(
           name: name,
           min_adults: values["min_adults"],
           max_adults: values["max_adults"],
@@ -74,7 +74,7 @@ class Family
         )
       when "acres_per_day"
         fields.each do |field|
-          wg << WorkOrder.new(
+          work_orders << WorkOrder.new(
             name: "#{name} #{field.object_id}",
             min_adults: values["min_adults"] || 0,
             max_adults: field.acreage.fdiv(values['per_adult']),
@@ -84,6 +84,6 @@ class Family
       end
     end
 
-    return wg
+    return work_orders
   end
 end

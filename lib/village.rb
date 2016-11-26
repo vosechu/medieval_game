@@ -1,3 +1,4 @@
+require 'contracts'
 require 'celluloid/current'
 
 require 'citizen'
@@ -10,6 +11,9 @@ require 'stockpile'
 class Village < Site
   include Celluloid
   include Celluloid::Internals::Logger
+
+  include Contracts::Core
+  include Contracts::Builtin
 
   attr_accessor :shire
   attr_accessor :comm_range
@@ -41,31 +45,32 @@ class Village < Site
     @comm_modifier = 0
   end
 
+  Contract nil => nil
   def tick
-    if Calendar.date.mday == 1 && Calendar.date.hour == 1
-      # FIXME: We should probably simplify to just doing days
+    if Calendar.date.mday == 1
       # FIXME: This may be deleting tasks that still need to be done
       # TODO: Implement max amount of time to try a thing. Like, we
       # could only plant so much this year, so that sucks.
       reset_work_orders
     end
 
-    if Calendar.date.hour > 5 && Calendar.date.hour < 22
-      advertise if work_orders.empty?
-      assign_citizens_to_work_orders
-      work
-    else
-      quitting_time
-    end
+    advertise if work_orders.empty?
+    assign_citizens_to_work_orders
+    work
+    quitting_time
 
     return nil
   end
 
+  Contract nil => ArrayOf[Citizen]
   def citizens
-    citizens = families.map(&:members).flatten.compact
+    # TODO: Add in some form of caching
+    families.map(&:members).flatten.compact
   end
 
+  Contract nil => ArrayOf[Field]
   def fields
+    # TODO: Add in some form of caching
     families.map(&:fields).flatten # | families.fields | lord.fields | church.fields
   end
 
@@ -88,25 +93,14 @@ class Village < Site
   #   }
   # end
 
-  def advertise_work_order(name:, max_adults:, max_children:, person_days:)
-    self.work_orders << WorkOrder.new(
-      name: name,
-      max_adults: max_adults,
-      max_children: max_children,
-      person_days: person_days
-    )
-  end
-
   def work
-    work_orders.reject(&:finished?).each do |work_order|
-      work_order.progress
-    end
+    work_orders.reject(&:finished?).map(&:progress)
 
     return nil
   end
 
   def advertise
-    work_orders = owners.map(&:advertise)
+    self.work_orders = owners.map(&:work_needed).flatten.compact
 
     return nil
   end
@@ -122,7 +116,9 @@ class Village < Site
   end
 
   def reset_work_orders
-    # info "NOT FINISHED! #{self.work_orders.reject(&:finished?)}"
+    if !work_orders.reject(&:finished?).empty?
+      warn "NOT FINISHED! #{work_orders.reject(&:finished?)}"
+    end
     self.work_orders = []
   end
 
@@ -130,10 +126,10 @@ class Village < Site
     available_work_orders = work_orders.reject(&:finished?).reject(&:full?)
 
     citizens.reject(&:busy?).each do |citizen|
-      wo = available_work_orders.sample
+      work_orders = available_work_orders.sample
 
-      unless wo.nil?
-        wo.sign_up(child: citizen.child?)
+      unless work_orders.nil?
+        work_orders.sign_up(child: citizen.child?)
         citizen.sign_up
       end
     end

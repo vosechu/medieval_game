@@ -6,7 +6,7 @@ class Calendar
   include Contracts::Core
   include Contracts::Builtin
 
-  TICK_LENGTH = 1.hour
+  TICK_LENGTH = 1.day
 
   class << self
     Contract nil => DateTime

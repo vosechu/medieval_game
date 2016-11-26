@@ -7,6 +7,8 @@ require 'village'
 require 'family'
 
 class MedievalGame
+  include Celluloid::Internals::Logger
+
   attr_accessor :villages
 
   def initialize
@@ -16,10 +18,10 @@ class MedievalGame
   def tick
     Calendar.tick
 
-    # info "\nTICK\n #{Calendar.date}"
+    info "TICK: #{Calendar.date}"
 
     villages.each do |village|
-      village.async.tick
+      village.tick
     end
 
     return nil
@@ -32,8 +34,8 @@ if $PROGRAM_NAME == __FILE__
 
   number_of_villages = 10
   # number_of_villages = 9000
-  number_of_villagers = 200
-  # number_of_villagers = 500
+  number_of_families = 50
+  # number_of_families = 200
   # number_of_ticks = 6
   number_of_ticks = 52.weeks / Calendar::TICK_LENGTH
 
@@ -49,16 +51,22 @@ if $PROGRAM_NAME == __FILE__
     end
     game.villages.each do |village|
       results.report("init citizens:") do
-        (number_of_villagers/6).times do
-          village.families << Family.new(
+        (number_of_families).times do
+          family = Family.new(
             head: Citizen.new,
             next_in_line: Citizen.new,
             members: [
-              Citizen.new(age: 13),
-              Citizen.new(age: 13),
-              Citizen.new(age: 13),
-              Citizen.new(age: 13)]
+              Citizen.new(age: 14),
+              Citizen.new(age: 14),
+              Citizen.new(age: 14),
+              Citizen.new(age: 14)]
           )
+          family.fields = [
+            Field.new(acres: 7),
+            Field.new(acres: 7),
+            Field.new(acres: 7),
+          ]
+          village.families << family
         end
       end
     end

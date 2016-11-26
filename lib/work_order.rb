@@ -1,4 +1,6 @@
 class WorkOrder
+  include Celluloid::Internals::Logger
+
   attr_reader :name
   attr_accessor :completeness, :adults, :children
 

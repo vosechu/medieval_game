@@ -5,6 +5,11 @@ require 'rspec'
 require 'contracts'
 
 RSpec.configure do |rspec|
+  rspec.before(:each) do |example|
+    # Hide Celluloid Logger output
+    Celluloid.logger = nil
+  end
+
   rspec.after :each do
     # If this fails, you need to reset the date after one of your specs
     # Use this after block:

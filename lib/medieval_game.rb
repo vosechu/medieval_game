@@ -53,11 +53,11 @@ if $PROGRAM_NAME == __FILE__
           village.families << Family.new(
             head: Citizen.new,
             next_in_line: Citizen.new,
-            children: [
-              Citizen.new(child: true),
-              Citizen.new(child: true),
-              Citizen.new(child: true),
-              Citizen.new(child: true)]
+            members: [
+              Citizen.new(age: 13),
+              Citizen.new(age: 13),
+              Citizen.new(age: 13),
+              Citizen.new(age: 13)]
           )
         end
       end

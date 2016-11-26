@@ -34,8 +34,8 @@ class Calendar
     end
 
     Contract nil => HashOf[String => HashOf[String => Hash]]
-    def months_work_groups
-      months_activities["work_groups"]
+    def months_work_orders
+      months_activities["work_orders"]
     end
 
     private
@@ -47,7 +47,7 @@ class Calendar
     def months_activities
       {
         "festivals"   => festivals[month_name] || {},
-        "work_groups" => work_groups[month_name] || {}
+        "work_orders" => work_orders[month_name] || {}
       }
     end
 
@@ -58,9 +58,9 @@ class Calendar
       end
     end
 
-    def work_groups
-      @work_groups ||= begin
-        yaml = yaml_load("work_groups")
+    def work_orders
+      @work_orders ||= begin
+        yaml = yaml_load("work_orders")
         yaml[yaml["set_to_use"]]
       end
     end

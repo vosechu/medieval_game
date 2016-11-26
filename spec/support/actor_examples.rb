@@ -1,6 +1,6 @@
 RSpec.shared_examples 'actor' do
   describe '#work' do
-    xit 'should be implemented' do
+    it 'should be implemented' do
       expect { subject.work }.to_not raise_error
     end
   end

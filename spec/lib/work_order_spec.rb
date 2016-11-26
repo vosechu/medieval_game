@@ -1,10 +1,7 @@
 require 'spec_helper'
-require 'work_group'
-require 'actor_collection_examples'
+require 'work_order'
 
-describe WorkGroup do
-  it_behaves_like 'actor_collection'
-
+describe WorkOrder do
   subject {
     described_class.new(
       name: "test",
@@ -13,7 +10,6 @@ describe WorkGroup do
       person_days: 40
     )
   }
-  let(:village) { instance_double("Village") }
 
   describe 'full work group' do
     before :each do
@@ -27,7 +23,7 @@ describe WorkGroup do
       expect(subject.full?).to be true
     end
 
-    it 'progresses' do
+    it 'progress' do
       expect(subject.completeness).to eq(0)
       subject.progress
       expect(subject.completeness).to eq(10)
@@ -40,7 +36,7 @@ describe WorkGroup do
     end
   end
 
-  describe 'half-full work group' do
+  describe 'half-full progress group' do
     before :each do
       subject.sign_up
       subject.sign_up(child: true)
@@ -50,7 +46,7 @@ describe WorkGroup do
       expect(subject.full?).to be false
     end
 
-    it 'progresses' do
+    it 'progress' do
       expect(subject.completeness).to eq(0)
       subject.progress
       expect(subject.completeness).to eq(5)

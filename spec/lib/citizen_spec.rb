@@ -9,7 +9,15 @@ describe Citizen do
 
   subject { described_class.new }
 
-  it 'does something' do
-    subject
+  describe 'children' do
+    it "is a child if under 14 years old" do
+      allow(subject).to receive(:age).and_return 13
+      expect(subject.child?).to be true
+    end
+    it "is an adult if 14 years old or older" do
+      allow(subject).to receive(:age).and_return 14
+      expect(subject.child?).to be false
+    end
+
   end
 end

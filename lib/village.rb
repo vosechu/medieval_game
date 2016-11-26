@@ -43,6 +43,7 @@ class Village < Site
 
   def tick
     if Calendar.date.mday == 1 && Calendar.date.hour == 1
+      # FIXME: We should probably simplify to just doing days
       # FIXME: This may be deleting tasks that still need to be done
       # TODO: Implement max amount of time to try a thing. Like, we
       # could only plant so much this year, so that sucks.
@@ -61,10 +62,7 @@ class Village < Site
   end
 
   def citizens
-    citizens = families.map do |family|
-      [family.adults, family.children]
-    end
-    citizens.flatten.compact
+    citizens = families.map(&:members).flatten.compact
   end
 
   def fields

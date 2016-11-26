@@ -11,7 +11,7 @@ describe Family do
     described_class.new(
       head: instance_double("Citizen", :work => true),
       next_in_line: instance_double("Citizen", :work => true),
-      children: [instance_double("Citizen", :child? => true, :work => true)]
+      members: [instance_double("Citizen", :child? => true, :work => true)]
     )
   }
 

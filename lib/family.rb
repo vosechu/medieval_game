@@ -17,27 +17,30 @@ class Family
   include Contracts::Builtin
 
   attr_reader :stockpile
-  attr_reader :children
   attr_accessor :fields
 
-  def initialize(head:, next_in_line:, children:)
+  def initialize(head:, next_in_line:, members:)
     @name = ""
 
     @head_of_family = head
     @next_in_line = next_in_line
-    @children = children || []
+    @members = members || []
 
     @stockpile    = Stockpile.new
     @fields       = []
   end
 
   def adults
-    [@head, @next_in_line].compact
+    @adults ||= members.select {|member| member.adult? }.compact
+  end
+  def children
+    # FIXME: This will not update when the child turns 14
+    @children ||= members.select {|member| member.child? }.compact
   end
 
   Contract nil => ArrayOf[Citizen]
-  def all
-    (adults + children).compact.flatten
+  def members
+    @members
   end
 
   Contract nil => Num
@@ -46,7 +49,7 @@ class Family
   end
 
   def work
-    all.map(&:work)
+    members.map(&:work)
   end
 
   Contract nil => ArrayOf[WorkOrder]

@@ -6,7 +6,7 @@ require 'calendar'
 # Interface: Owner
 class Citizen
   attr_accessor :current_task
-  # attr_accessor :health, :wealth, :satisfaction, :age, :gender
+  attr_accessor :age, :health, :wealth, :satisfaction, :gender
   # attr_accessor :highest_rank, :titles
   # attr_accessor :parents, :spouse, :children
   # attr_accessor :pregnant_at
@@ -14,11 +14,11 @@ class Citizen
 
   attr_accessor :busy
 
-  def initialize(child: false)
+  def initialize(age: 0)
     # @health       = 100
     # @wealth       = 100
     # @satisfaction = 100
-    # @age          = 20
+    @age          = age
     # @gender       = 'male'
 
     # @highest_rank = 'serf'
@@ -37,16 +37,17 @@ class Citizen
     # @pregnant_at  = Time.now
     # @children     = []
 
-    @child        = child
-
     @stockpile    = Stockpile.new
     @fields       = [Field.new(acres: 10)]
 
     @busy = false
   end
 
+  def adult?
+    age >= 14
+  end
   def child?
-    !!@child
+    !adult?
   end
 
   def work

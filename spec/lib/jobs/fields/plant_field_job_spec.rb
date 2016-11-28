@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'jobs/fields/plant_field_job'
+require 'jobs/fields/plant_grain_job'
 require 'job_examples'
 
-describe PlantFieldJob do
+describe PlantGrainJob do
   it_behaves_like 'job'
 
   let(:field) { instance_double('Field', :reserve => nil, :unreserve => nil, :percent_sown => 15, :percent_sown= => nil, :sown? => false, :acreage => 10)}
@@ -40,6 +40,14 @@ describe PlantFieldJob do
   end
 
   describe '#on_work' do
+    before(:each) do
+      allow(subject).to receive(:acres_processed_per_person).and_return(2.0)
+      allow(subject).to receive(:percent_seed_stock).and_return(1.0)
+      allow(subject).to receive(:percent_workers).and_return(1.0)
+      allow(field).to receive(:percent_sown).and_return(0)
+      allow(field).to receive(:acreage).and_return(10)
+    end
+
     it 'removes the seed stock' do
       expect(store).to receive(:remove_seed_stock)
 
@@ -60,18 +68,16 @@ describe PlantFieldJob do
 
     it 'increases the percent_sown relative to the amount of seed' do
       allow(subject).to receive(:percent_seed_stock).and_return(0.8)
-      allow(field).to receive(:percent_sown).and_return(0)
 
-      expect(field).to receive(:percent_sown=).with(5.0 * 1 * 0.8)
+      expect(field).to receive(:percent_sown=).with(2.0 * 1.0 * 0.8 / 10)
 
       subject.send(:on_work)
     end
 
     it 'increases the percent_sown relative to the amount of workers' do
       allow(subject).to receive(:percent_workers).and_return(0.8)
-      allow(field).to receive(:percent_sown).and_return(0)
 
-      expect(field).to receive(:percent_sown=).with(5.0 * 0.8 * 1)
+      expect(field).to receive(:percent_sown=).with(2.0 * 1.0 * 0.8 / 10)
 
       subject.send(:on_work)
     end
@@ -79,7 +85,8 @@ describe PlantFieldJob do
     it 'asks to increases percent_sown past 100 without a care' do
       allow(field).to receive(:percent_sown).and_return(100)
 
-      expect(field).to receive(:percent_sown=).with(100 + 5.0)
+      # 100.2 = 100 + (2.0 * 1.0 * 1.0 / 10)
+      expect(field).to receive(:percent_sown=).with(100.2)
 
       subject.send(:on_work)
     end

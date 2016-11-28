@@ -1,7 +1,7 @@
 require 'jobs/base_job'
 
 # Interface: Job
-class PlantFieldJob < BaseJob
+class PlantGrainJob < BaseJob
   attr_reader :field, :workers, :store
 
   def initialize(field:, workers:, store:)
@@ -16,29 +16,47 @@ class PlantFieldJob < BaseJob
 
   protected
 
+  Contract nil => nil
   def on_create
     @reserved_seed_stock_amount = store.reserve_seed_stock(desired_seed_stock_amount)
     workers.map { |worker| worker.busy = true }
     field.reserve
+
+    return nil
   end
 
+  Contract nil => Bool
   def before_work
-
+    return true
   end
 
+  Contract nil => nil
   def on_work
     store.remove_seed_stock(desired_seed_stock_amount)
     workers.map { |worker| worker.tired = true }
-    field.percent_sown += 5.0 * percent_seed_stock * percent_workers # 5.0 acres per personday
+    # TODO: Check this math
+    field.percent_sown +=
+      ( acres_processed_per_person *
+        percent_seed_stock *
+        percent_workers # 5.0 acres per personday
+      ) / field.acreage
+
+    return nil
   end
 
+  Contract nil => nil
   def on_rescue
     store.unreserve_seed_stock(desired_seed_stock_amount)
+
+    return nil
   end
 
+  Contract nil => nil
   def on_finalize
     field.unreserve
     workers.map { |worker| worker.busy = false }
+
+    return nil
   end
 
   private
@@ -56,7 +74,7 @@ class PlantFieldJob < BaseJob
   end
 
   def desired_num_workers
-    field.acreage / acres_sown_per_person
+    field.acreage / acres_processed_per_person
   end
 
   def bushels_per_acre
@@ -64,7 +82,7 @@ class PlantFieldJob < BaseJob
     2.0
   end
 
-  def acres_sown_per_person
+  def acres_processed_per_person
     5.0
   end
 end

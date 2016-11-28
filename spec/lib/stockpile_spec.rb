@@ -22,4 +22,9 @@ describe Stockpile do
       expect(subject.reserve_seed_stock(101)).to eq(100)
     end
   end
+
+  it 'can store harvested grain' do
+    subject.harvested_grain = 13
+    expect(subject.harvested_grain).to eq 13
+  end
 end

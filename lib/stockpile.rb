@@ -6,10 +6,12 @@ class Stockpile
 
   attr_accessor :seed_stock
   attr_accessor :reserved_seed_stock
+  attr_accessor :harvested_grain
 
   def initialize
     @seed_stock = 100
     @reserved_seed_stock = 0
+    @harvested_grain = 0
   end
 
   def structures
@@ -34,6 +36,8 @@ class Stockpile
       :secondary_goods => secondary_goods
     }
   end
+
+  Contract Num => Num
   def reserve_seed_stock(amount)
     amount = @seed_stock if @seed_stock <= amount
 
@@ -42,6 +46,8 @@ class Stockpile
 
     return amount
   end
+
+  Contract Num => Bool
   def remove_seed_stock(amount)
     @reserved_seed_stock -= amount
 

@@ -1,4 +1,9 @@
+require 'contracts'
+
 class Stockpile
+  include Contracts::Core
+  include Contracts::Builtin
+
   attr_accessor :seed_stock
   attr_accessor :reserved_seed_stock
 
@@ -30,15 +35,25 @@ class Stockpile
     }
   end
   def reserve_seed_stock(amount)
-    @reserved_seed_stock += amount
+    amount = @seed_stock if @seed_stock <= amount
+
     @seed_stock -= amount
+    @reserved_seed_stock += amount
+
+    return amount
   end
   def remove_seed_stock(amount)
     @reserved_seed_stock -= amount
+
+    return true
   end
+
+  Contract Num => Bool
   def unreserve_seed_stock(amount)
     @reserved_seed_stock -= amount
     @seed_stock += amount
+
+    return true
   end
 
   def live_stock

@@ -12,7 +12,7 @@ class Field
   end
 
   def sown?
-    !!@sown_with
+    !!@percent_sown == 100
   end
 
   def progress
@@ -24,5 +24,8 @@ class Field
   end
   def unreserve
     @reserved = false
+  end
+  def reserved?
+    !!@reserved
   end
 end

@@ -17,7 +17,6 @@ class PlantFieldJob < BaseJob
   protected
 
   def on_create
-    # FIXME: Should we ask the field for this info, or pass in init?
     @reserved_seed_stock_amount = store.reserve_seed_stock(desired_seed_stock_amount)
     workers.map { |worker| worker.busy = true }
     field.reserve
@@ -49,15 +48,23 @@ class PlantFieldJob < BaseJob
   end
 
   def percent_workers
-    # FIXME: We don't actually have this number yet
-    1
+    workers.count / desired_num_workers
   end
 
   def desired_seed_stock_amount
     field.acreage * bushels_per_acre
   end
 
+  def desired_num_workers
+    field.acreage / acres_sown_per_person
+  end
+
   def bushels_per_acre
-    2
+    # TODO: Import the table of values per grain type
+    2.0
+  end
+
+  def acres_sown_per_person
+    5.0
   end
 end

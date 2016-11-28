@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'support'))
 
 require 'rspec'
 require 'contracts'
+require 'celluloid/current'
 
 RSpec.configure do |rspec|
   rspec.before(:each) do |example|

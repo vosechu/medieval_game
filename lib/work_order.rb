@@ -4,7 +4,9 @@ class WorkOrder
   attr_reader :name
   attr_accessor :completeness, :adults, :children
 
-  def initialize(name:, min_adults: 0, max_adults: 0, min_children: 0, max_children: 0, person_days:)
+  def initialize(work_object:, name:, min_adults: 0, max_adults: 0, min_children: 0, max_children: 0, person_days:)
+    @work_object  = work_object # Thing we work upon
+
     @name         = name
     @max_adults   = max_adults || 0
     @max_children = max_children || 0

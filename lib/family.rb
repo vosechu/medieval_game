@@ -65,6 +65,7 @@ class Family
       case type
       when "fixed_per_day"
         work_orders << WorkOrder.new(
+          work_object: Object.new, # FIXME: Obviously wrong
           name: name,
           min_adults: values["min_adults"],
           max_adults: values["max_adults"],
@@ -75,6 +76,7 @@ class Family
       when "acres_per_day"
         fields.each do |field|
           work_orders << WorkOrder.new(
+            work_object: field,
             name: "#{name} #{field.object_id}",
             min_adults: values["min_adults"] || 0,
             max_adults: field.acreage.fdiv(values['per_adult']),

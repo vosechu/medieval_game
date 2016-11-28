@@ -4,6 +4,7 @@ require 'work_order'
 describe WorkOrder do
   subject {
     described_class.new(
+      work_object: Object.new,
       name: "test",
       max_adults: 2,
       max_children: 2,

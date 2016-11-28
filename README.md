@@ -59,5 +59,7 @@ Run automatically and notify: `bundle exec guard`
 
 Run a "full" simulation: `time bundle exec ruby lib/medieval_game.rb`.
 Run a "full" simulation (w/o contract analysis): `time NO_CONTRACTS=true bundle exec ruby lib/medieval_game.rb`.
+Run a "full" simulation (w/o massive log output): `time bundle exec ruby lib/medieval_game.rb 2>&1 | grep WARN`.
+
 
 > The full simulation is useful for playing around and to benchmark performance.

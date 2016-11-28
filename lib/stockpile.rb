@@ -1,5 +1,10 @@
 class Stockpile
+  attr_accessor :seed_stock
+  attr_accessor :reserved_seed_stock
+
   def initialize
+    @seed_stock = 100
+    @reserved_seed_stock = 0
   end
 
   def structures
@@ -23,6 +28,17 @@ class Stockpile
       :intermediary_goods => intermediary_goods,
       :secondary_goods => secondary_goods
     }
+  end
+  def reserve_seed_stock(amount)
+    @reserved_seed_stock += amount
+    @seed_stock -= amount
+  end
+  def remove_seed_stock(amount)
+    @reserved_seed_stock -= amount
+  end
+  def unreserve_seed_stock(amount)
+    @reserved_seed_stock -= amount
+    @seed_stock += amount
   end
 
   def live_stock
@@ -99,20 +115,20 @@ class Stockpile
     }
   end
 
-  def seed_stock
-    {
-      :wheat  => :unknown, # Sown 2.43-2.56 bushel / acre
-      :rye    => :unknown, # Sown 2.62-3.02 bushel / acre
-      :barley => :unknown, # Sown 3.97-4.16 bushel / acre
-      :oats   => :unknown, # Sown 2.67-3.67 bushel / acre
-      :pulses => :unknown, # Sown 2.19-2.90 bushel / acre
-      :hay    => :unknown,
-      :corn   => :unknown,
+  # def seed_stock
+  #   {
+  #     :wheat  => :unknown, # Sown 2.43-2.56 bushel / acre
+  #     :rye    => :unknown, # Sown 2.62-3.02 bushel / acre
+  #     :barley => :unknown, # Sown 3.97-4.16 bushel / acre
+  #     :oats   => :unknown, # Sown 2.67-3.67 bushel / acre
+  #     :pulses => :unknown, # Sown 2.19-2.90 bushel / acre
+  #     :hay    => :unknown,
+  #     :corn   => :unknown,
 
-      :flax   => :unknown,
-      :hemp   => :unknown,
-    }
-  end
+  #     :flax   => :unknown,
+  #     :hemp   => :unknown,
+  #   }
+  # end
 
   def house_stock
     {

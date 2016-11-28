@@ -135,8 +135,10 @@ default:
     #   <<: *temp_ratios
 
   february:
-    spring_add_lime_chalk_and_manure: # improve bonus_fertility
+    spring_add_lime_chalk_and_manure:
       acres_per_day:
+        improves: :bonus_fertility
+        completed_improvement_amount: 0.2
         per_adult: 1.0
         min_adults: 1
 
@@ -160,8 +162,10 @@ default:
     #   <<: *temp_ratios
 
   march:
-    spring_plow_fields: # improve bonus_yield
+    spring_plow_fields:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  1.0 # 0.79 - 1.85 [Weisbach]
         min_adults: 2
         # min_oxen: 8
@@ -170,33 +174,45 @@ default:
     #   <<: *temp_ratios
 
   april:
-    spring_clear_ditches: # improve bonus_fertility
+    spring_clear_ditches:
       <<: *temp_ratios
-    spring_spread_muck: # improve bonus_fertility
+      #   improves: :bonus_fertility
+      #   completed_improvement_amount: 0.2
+    spring_spread_muck:
       <<: *temp_ratios
       # fixed_percentage_time:
       #   max_adults: 100
       #   days: 27
+      #   improves: :bonus_fertility
+      #   completed_improvement_amount: 0.2
 
-    spring_plant_oats: # improve percent_sown
+    spring_plant_oats:
       acres_per_day:
+        improves: :percent_sown
+        completed_improvement_amount: 0.2
         per_adult:  5.0 # [1]
         min_adults: 1
         # seed: 2 # bushels
 
-    spring_plant_barley: # improve percent_sown
+    spring_plant_barley:
       acres_per_day:
+        improves: :percent_sown
+        completed_improvement_amount: 0.2
         per_adult:  5.0 # [1]
         min_adults: 1
         # seed: 2 # bushels
 
-    spring_harrow: # improve bonus_yield
+    spring_harrow:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  3.0 # [1]
         min_adults: 1
 
-    fallow_plow_fields: # improve bonus_yield
+    fallow_plow_fields:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  1.0
         min_adults: 2
 
@@ -216,8 +232,10 @@ default:
     # birds with slings: only the lord's doves were sacrosanct and killing one
     # brought a heavy penalty. The doves could cause considerable damage to
     # crops and they were a hated symbol of the lord's power."
-    defend_plants_from_birds: # improve bonus_yield
+    defend_plants_from_birds:
       <<: *temp_ratios
+      #   improves: :bonus_yield
+      #   completed_improvement_amount: 0.2
 
     # plant_pulses:
     #   <<: *temp_ratios # peas and beans
@@ -239,18 +257,24 @@ default:
     #   <<: *temp_ratios
 
   june:
-    fallow_plow_fields_deeply: # improve bonus_yield
+    fallow_plow_fields_deeply:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  0.5 # [1]
         min_adults: 2
 
-    fallow_spread_muck: # improve bonus_fertility
+    fallow_spread_muck:
       <<: *temp_ratios
+      #   improves: :bonus_fertility
+      #   completed_improvement_amount: 0.2
     # "Each acre could support two sheep; cattle required about two acres each."
     # "Beasts were not permitted to graze the meadows until at least a month
     # after the haymaking to give the grass a chance to recover."
-    fallow_pasture_animals: # improve bonus_fertility
+    fallow_pasture_animals:
       <<: *temp_ratios
+      #   improves: :bonus_fertility
+      #   completed_improvement_amount: 0.2
 
     # shear_sheep:
     #   <<: *temp_ratios
@@ -263,13 +287,17 @@ default:
     #     min_children: 1   # "Women and children followed to turn the hay behind them to ensure it dried evenly."
 
   july:
-    spring_weed_crops: # improve bonus_yield
+    spring_weed_crops:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:    0.3333
         min_adults:   1
         min_children: 1
-    winter_weed_crops: # improve bonus_yield
+    winter_weed_crops:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:    0.3333
         min_adults:   1
         min_children: 1
@@ -294,20 +322,24 @@ default:
     # in upland areas where the growing season was short."
     # "A team of five people - four reapers and a binder - could harvest
     # two acres of crops a day."
-    winter_harvest_grains: # calculate final_bushel_yield
+    winter_harvest_grains:
       acres_per_day:
+        calculates: :final_bushel_yield
         per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
         min_adults: 5
 
-    spring_harvest_grains: # calculate final_bushel_yield
+    spring_harvest_grains:
       acres_per_day:
+        calculates: :final_bushel_yield
         per_adult:  0.4       # 20 acres / 0.4 ratio        = 50 person_days, min 5 people
         min_adults: 5
 
     # Church tithes - one sheaf in every ten - were collected from the field
     # before peasants carted their crop to their barns and houses.
-    deliver_tithes: # reduce final_bushel_yield
+    deliver_tithes:
       <<: *temp_ratios
+      #   reduces: :final_bushel_yield
+      #   completed_reduction_amount: -0.1
 
     # harvest_straw:
     #   <<: *temp_ratios
@@ -342,28 +374,34 @@ default:
     # and free from vermin, but this was not always easy."
     # "Flour had a much shorter shelf-life, and milling the grain was done as
     # and when necessary."
-    thresh_winnow_seive_store_bushels_of_wheat: # calculate final_grain_yield
+    thresh_winnow_seive_store_bushels_of_wheat:
       units_processed_per_day:
+        calculates: :final_grain_yield
         per_adult:  7 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_bushels_of_rye: # calculate final_grain_yield
+    thresh_winnow_seive_store_bushels_of_rye:
       units_processed_per_day:
+        calculates: :final_grain_yield
         per_adult:  8 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_bushels_of_barley: # calculate final_grain_yield
+    thresh_winnow_seive_store_bushels_of_barley:
       units_processed_per_day:
+        calculates: :final_grain_yield
         per_adult:  15 # bushels
         min_adults: 1
-    thresh_winnow_seive_store_bushels_of_oats: # calculate final_grain_yield
+    thresh_winnow_seive_store_bushels_of_oats:
       units_processed_per_day:
+        calculates: :final_grain_yield
         per_adult:  18 # bushels
         min_adults: 1
 
     # "A substantial portion of the grain processing had to be completed by
     # Michaelmas (September 29), which marked the start of the new financial year
     # and was the day for settling debts, rents and dues."
-    pay_taxes: # reduce final_grain_yield
+    pay_taxes:
       <<: *temp_ratios
+      #   reduces: :final_grain_yield
+      #   completed_reduction_amount: -0.1
 
     # Crop            Seed (bu/acre)  Seed:Yield Ratio  Yield (bu/acre)
     # Wheat           2.8             3.8               10.5
@@ -379,15 +417,18 @@ default:
     # bad harvests (where the yield was 15 per cent or more below the average)
     # occured about one year in eight and good harvests (where the yields were
     # 15 per cent or more above the average) about one year in 20.
-    calculate_final_grain_yield: # calculate final_grain_yield less taxes
+    calculate_final_grain_yield:
       <<: *temp_ratios
+      #   calculates: :final_grain_yield_less_taxes
 
     # take_excess_stock_to_market:
     #   <<: *temp_ratios
 
   october:
-    fallow_plow_fields: # improve bonus_yield
+    fallow_plow_fields:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  1.0
         min_adults: 2
 
@@ -396,17 +437,23 @@ default:
     # it was the same as wheat."
     winter_plant_wheat:
       acres_per_day:
+        improves: :percent_sown
+        completed_improvement_amount: 0.2
         per_adult:  5.0 # [1]
         min_adults: 1
         # seed: 2 # bushels
     winter_plant_rye:
       acres_per_day:
+        improves: :percent_sown
+        completed_improvement_amount: 0.2
         per_adult:  5.0 # [1]
         min_adults: 1
         # seed: 2 # bushels
 
-    winter_harrow: # improve bonus_yield
+    winter_harrow:
       acres_per_day:
+        improves: :bonus_yield
+        completed_improvement_amount: 0.2
         per_adult:  3.0 # [1]
         min_adults: 1
 

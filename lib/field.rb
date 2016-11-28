@@ -18,4 +18,11 @@ class Field
   def progress
 
   end
+
+  def reserve
+    @reserved = true
+  end
+  def unreserve
+    @reserved = false
+  end
 end

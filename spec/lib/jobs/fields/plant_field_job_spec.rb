@@ -5,7 +5,7 @@ require 'job_examples'
 describe PlantFieldJob do
   it_behaves_like 'job'
 
-  let(:field) { instance_double('Field', :reserve => nil, :unreserve => nil, :percent_sown => 15, :percent_sown= => nil, :sown? => false)}
+  let(:field) { instance_double('Field', :reserve => nil, :unreserve => nil, :percent_sown => 15, :percent_sown= => nil, :sown? => false, :acreage => 10)}
   let(:worker) { instance_double('worker', :busy= => nil, :tired= => nil)}
   let(:store) { instance_double('Stockpile', :reserve_seed_stock => nil, :remove_seed_stock => nil, :unreserve_seed_stock => nil)}
 
@@ -43,19 +43,19 @@ describe PlantFieldJob do
     it 'removes the seed stock' do
       expect(store).to receive(:remove_seed_stock)
 
-      subject.work
+      subject.send(:on_work)
     end
 
     it 'exhausts the workers' do
       expect(worker).to receive(:tired=)
 
-      subject.work
+      subject.send(:on_work)
     end
 
     it 'increases the percent_sown' do
       expect(field).to receive(:percent_sown=)
 
-      subject.work
+      subject.send(:on_work)
     end
 
     it 'increases the percent_sown relative to the amount of seed' do
@@ -64,7 +64,7 @@ describe PlantFieldJob do
 
       expect(field).to receive(:percent_sown=).with(5.0 * 1 * 0.8)
 
-      subject.work
+      subject.send(:on_work)
     end
 
     it 'increases the percent_sown relative to the amount of workers' do
@@ -73,7 +73,7 @@ describe PlantFieldJob do
 
       expect(field).to receive(:percent_sown=).with(5.0 * 0.8 * 1)
 
-      subject.work
+      subject.send(:on_work)
     end
 
     it 'asks to increases percent_sown past 100 without a care' do
@@ -81,7 +81,7 @@ describe PlantFieldJob do
 
       expect(field).to receive(:percent_sown=).with(100 + 5.0)
 
-      subject.work
+      subject.send(:on_work)
     end
   end
 
@@ -99,13 +99,13 @@ describe PlantFieldJob do
     it 'releases the workers' do
       expect(worker).to receive(:busy=).with(false)
 
-      subject.work
+      subject.send(:on_finalize)
     end
 
     it 'releases the field' do
       expect(field).to receive(:unreserve)
 
-      subject.work
+      subject.send(:on_finalize)
     end
   end
 end

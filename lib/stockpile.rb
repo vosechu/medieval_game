@@ -9,7 +9,7 @@ class Stockpile
   attr_accessor :harvested_grain
 
   def initialize
-    @seed_stock = 100
+    @seed_stock = 0
     @reserved_seed_stock = 0
     @harvested_grain = 0
   end

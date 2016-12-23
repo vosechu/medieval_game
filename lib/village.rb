@@ -1,9 +1,9 @@
 require 'contracts'
 require 'celluloid/current'
 
-require 'citizen'
+# require 'citizen'
 require 'site'
-require 'work_order'
+# require 'work_order'
 require 'field'
 require 'stockpile'
 
@@ -19,6 +19,7 @@ class Village < Site
   # attr_accessor :comm_range
   # attr_accessor :work_orders, :families
   # attr_reader :citizens
+  attr_accessor :stockpile, :fields
 
   def initialize(map: nil, coordinates: nil)
     super(map: map, coordinates: coordinates)
@@ -32,7 +33,7 @@ class Village < Site
     # @reeve          = Citizen.new
 
     @stockpile    = Stockpile.new
-    @fields       = [Field.new(acres: 10)]
+    @fields       = []
 
     # @shire          = Object.new
 
@@ -96,6 +97,29 @@ class Village < Site
 
   def work
     # work_orders.reject(&:finished?).map(&:progress)
+    case Calendar.date.month
+    when 1 # Jan
+    when 2 # Feb
+    when 3 # Mar
+    when 4 # Apr
+    when 5 # May
+      # First planting
+      return if fields.count == 0
+      @stockpile.seed_stock -= @fields.map(&:acreage).reduce(:+)
+      @fields.map(&:sow)
+    when 6 # Jun
+    when 7 # Jul
+      # Harvest last years winter grain
+    when 8 # Aug
+      # Harvest spring grains
+      return if fields.count == 0
+      @stockpile.seed_stock = @fields.map(&:harvest).reduce(:+)
+    when 9 # Sep
+    when 10 # Oct
+      # Plant winter grain
+    when 11 # Nov
+    when 12 # Dec
+    end
 
     return nil
   end

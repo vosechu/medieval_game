@@ -27,12 +27,17 @@ describe MedievalGame do
       #       Citizen.new(age: 14)]
       #   )
       #   family.fields = [
-      #     Field.new(acres: 7),
-      #     Field.new(acres: 7),
-      #     Field.new(acres: 7),
+          # Field.new(acres: 7),
+          # Field.new(acres: 7),
+          # Field.new(acres: 7),
       #   ]
       #   village.families << family
       # end
+      village.fields = [
+        Field.new(acres: 7),
+        Field.new(acres: 7),
+        Field.new(acres: 7)
+      ]
     end
     number_of_ticks.times do
       expect { game.tick }.to_not raise_error

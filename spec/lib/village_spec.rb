@@ -4,7 +4,7 @@ require 'village'
 require 'actor_collection_examples'
 
 describe Village do
-  it_behaves_like 'actor_collection'
+  # it_behaves_like 'actor_collection'
 
   after :each do
     Calendar.date = DateTime.new(800, 1, 1, 0, 0, 0, 0, Date::GREGORIAN)
@@ -47,5 +47,49 @@ describe Village do
     #   expect(subject.wrapped_object).to receive(:quitting_time)
     #   subject.tick
     # end
+  end
+
+  describe '#work' do
+    subject {
+      village = described_class.new()
+      10.times { village.fields << Field.new(acres: 10) }
+      village
+    }
+
+    it 'decreases the seed stock at sowing time' do
+      Calendar.date = DateTime.new(800, 5, 1, 0, 0, 0, 0, Date::GREGORIAN)
+      subject.stockpile.seed_stock = 100
+
+      subject.work
+      expect(subject.stockpile.seed_stock).to eq(0)
+    end
+
+    it 'increases the sown amount at sowing time' do
+      Calendar.date = DateTime.new(800, 5, 1, 0, 0, 0, 0, Date::GREGORIAN)
+      subject.fields.map { |field| field.percent_sown = 0 }
+
+      subject.work
+      expect(subject.fields.select { |field|
+        field.percent_sown == 100 }.count).to eq(10)
+    end
+
+    it 'decreases the sown amount upon harvest' do
+      Calendar.date = DateTime.new(800, 8, 1, 0, 0, 0, 0, Date::GREGORIAN)
+      subject.stockpile.seed_stock = 0
+      subject.fields.each { |field| field.percent_sown = 100 }
+
+      subject.work
+      expect(subject.fields.select { |field|
+        field.percent_sown == 0 }.count).to eq(10)
+    end
+
+    it 'increases the seed stock upon harvest' do
+      Calendar.date = DateTime.new(800, 8, 1, 0, 0, 0, 0, Date::GREGORIAN)
+      subject.stockpile.seed_stock = 0
+      subject.fields.each { |field| field.percent_sown = 100 }
+
+      subject.work
+      expect(subject.stockpile.seed_stock).to eq(200)
+    end
   end
 end
